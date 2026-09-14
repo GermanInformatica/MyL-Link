@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MyL Link - Plataforma de Mitos y Leyendas</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- BARRA DE NAVEGACIÓN -->
+  <header class="navbar">
+    <div class="logo">
+      <h2>MyL <span>Link</span></h2>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="#" class="nav-link active" data-target="vista-inicio">Inicio</a></li>
+        <li><a href="#" class="nav-link" data-target="vista-cartas">Cartas</a></li>
+        <li><a href="#" class="nav-link" data-target="vista-mazos">Mazos</a></li>
+        <li><a href="#" class="nav-link" data-target="vista-perfil">Mi Perfil</a></li>
+      </ul>
+    </nav>
+    <div class="auth-buttons">
+      <button class="btn-secondary">Iniciar Sesión</button>
+      <button class="btn-primary">Registrarse</button>
+    </div>
+  </header>
+
+  <!-- CONTENEDOR DINÁMICO DE VISTAS -->
+  <main id="app-content">
+
+    <!-- 1. VISTA INICIO -->
+    <section id="vista-inicio" class="vista active">
+      <div class="hero">
+        <div class="hero-content">
+          <h1>Explora el Universo de <span>Mitos y Leyendas</span></h1>
+          <p>Consulta el catálogo completo de Espada Sagrada, gestiona tus mazos y analiza tus estrategias.</p>
+          <div class="hero-buttons">
+            <button class="btn-primary btn-large nav-btn" data-target="vista-cartas">Ver Catálogo</button>
+            <button class="btn-secondary btn-large nav-btn" data-target="vista-mazos">Explorar Mazos</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. VISTA CATÁLOGO DE CARTAS -->
+    <section id="vista-cartas" class="vista">
+      <div class="container">
+        <div class="section-header">
+          <h2>Catálogo de Cartas - <span>Espada Sagrada</span></h2>
+          <p>Explora y filtra las cartas registradas en el catálogo.</p>
+        </div>
+
+        <!-- PANEL DE FILTROS -->
+        <div id="panel-filtros" class="filtros-container">
+          <div class="filtro-grupo">
+            <input type="text" id="filtro-nombre" placeholder="Buscar por nombre..." autocomplete="off">
+          </div>
+          
+          <div class="filtro-grupo">
+            <select id="filtro-tipo">
+              <option value="">Todos los Tipos</option>
+              <option value="Aliado">Aliado</option>
+              <option value="Talismán">Talismán</option>
+              <option value="Tótem">Tótem</option>
+              <option value="Arma">Arma</option>
+              <option value="Oro">Oro</option>
+            </select>
+          </div>
+
+          <div class="filtro-grupo">
+            <select id="filtro-raza">
+              <option value="">Todas las Razas</option>
+              <option value="Caballero">Caballero</option>
+              <option value="Dragón">Dragón</option>
+              <option value="Faerie">Faerie</option>
+            </select>
+          </div>
+
+          <div class="filtro-grupo">
+            <select id="filtro-coste">
+              <option value="">Coste (Todos)</option>
+              <option value="0">Coste 0</option>
+              <option value="1">Coste 1</option>
+              <option value="2">Coste 2</option>
+              <option value="3">Coste 3</option>
+              <option value="4">Coste 4</option>
+              <option value="5">Coste 5</option>
+              <option value="6">Coste 6</option>
+              <option value="7">Coste 7</option>
+              <option value="8">Coste 8</option>
+            </select>
+          </div>
+
+          <div class="filtro-grupo">
+            <select id="filtro-fuerza">
+              <option value="">Fuerza (Todas)</option>
+              <option value="0">Fuerza 0</option>
+              <option value="1">Fuerza 1</option>
+              <option value="2">Fuerza 2</option>
+              <option value="3">Fuerza 3</option>
+              <option value="4">Fuerza 4</option>
+              <option value="5">Fuerza 5</option>
+              <option value="6">Fuerza 6</option>
+              <option value="7">Fuerza 7</option>
+              <option value="8">Fuerza 8</option>
+              <option value="9">Fuerza 9</option>
+              <option value="10">Fuerza 10</option>
+            </select>
+          </div>
+
+          <div class="filtro-grupo">
+            <button id="btn-limpiar-filtros" class="btn-secondary">Limpiar Filtros</button>
+          </div>
+        </div>
+
+        <div id="catalogo" class="grid-cartas">
+          <!-- Las cartas de MySQL se renderizan aquí -->
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. VISTA CONSTRUCTOR DE MAZOS -->
+    <section id="vista-mazos" class="vista">
+      <div class="container">
+        <div class="section-header">
+          <h2>Constructor de <span>Mazos</span></h2>
+          <p>Diseña y valida tu mazo para formato Espada Sagrada.</p>
+        </div>
+
+        <div class="deckbuilder-layout">
+          <!-- PANEL IZQUIERDO: SELECCIÓN DE CARTAS -->
+          <div class="deckbuilder-catalogo">
+            <h3>Buscar Cartas</h3>
+            <div class="filtros-container filtros-compactos">
+              <input type="text" id="deck-filtro-nombre" placeholder="Nombre..." autocomplete="off">
+              <select id="deck-filtro-tipo">
+                <option value="">Tipo (Todos)</option>
+                <option value="Aliado">Aliado</option>
+                <option value="Talismán">Talismán</option>
+                <option value="Tótem">Tótem</option>
+                <option value="Arma">Arma</option>
+                <option value="Oro">Oro</option>
+              </select>
+            </div>
+            <div id="deck-catalogo-lista" class="grid-cartas-deck">
+              <!-- Cartas para añadir -->
+            </div>
+          </div>
+
+          <!-- PANEL DERECHO: MAZO ACTUAL -->
+          <div class="deckbuilder-mazo">
+            <div class="mazo-header">
+              <input type="text" id="nombre-mazo" value="Mi Nuevo Mazo" class="input-nombre-mazo">
+              <div class="contador-mazo">
+                <span id="total-cartas-mazo">0</span> / 50 Cartas
+              </div>
+            </div>
+
+            <div class="resumen-tipos-mazo">
+              <span>Aliados: <strong id="cant-aliados">0</strong></span>
+              <span>Talismanes: <strong id="cant-talismanes">0</strong></span>
+              <span>Oros: <strong id="cant-oros">0</strong></span>
+              <span>Otros: <strong id="cant-otros">0</strong></span>
+            </div>
+
+            <div id="lista-cartas-mazo" class="mazo-lista-items">
+              <p class="empty-deck-msg">Tu mazo está vacío. Haz clic en las cartas del catálogo para agregarlas.</p>
+            </div>
+
+            <div class="mazo-acciones">
+              <button id="btn-vaciar-mazo" class="btn-secondary">Vaciar Mazo</button>
+              <button id="btn-guardar-mazo" class="btn-primary">Guardar Mazo</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- PIE DE PÁGINA -->
+  <footer>
+    <p>&copy; 2026 MyL Link - Plataforma de Mitos y Leyendas. Todos los derechos reservados.</p>
+  </footer>
+
+  <!-- MODAL DE DETALLE DE CARTA -->
+  <div id="modal-carta" class="modal">
+    <div class="modal-contenido">
+      <span class="cerrar-modal" id="btn-cerrar-modal">&times;</span>
+      <div class="modal-body">
+        <div class="modal-imagen">
+          <img id="modal-img" src="" alt="Imagen de Carta">
+        </div>
+        <div class="modal-detalles">
+          <h2 id="modal-nombre"></h2>
+          <p class="modal-tipo" id="modal-tipo-raza"></p>
+          <div class="modal-stats" id="modal-stats"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+
+</body>
+</html>

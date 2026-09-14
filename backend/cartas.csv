@@ -1,0 +1,67 @@
+id_carta,nombre_carta,tipo,coste,fuerza,raza,imagen_url,visitas_count
+1,Rey Arturo Pendragon,Aliado,5,2,Caballero,/img/cartas/es-1.jpg,0
+2,Reina Guinivere,Aliado,4,2,Caballero,/img/cartas/es-2.jpg,0
+3,Sir Lancelot,Aliado,4,1,Caballero,/img/cartas/es-3.jpg,0
+4,Sir Gawen,Aliado,3,2,Caballero,/img/cartas/es-4.jpg,0
+5,Sir Persival,Aliado,3,2,Caballero,/img/cartas/es-5.jpg,0
+6,Sir Tristan,Aliado,3,1,Caballero,/img/cartas/es-6.jpg,0
+7,Sir Galahad,Aliado,3,2,Caballero,/img/cartas/es-7.jpg,0
+16,Dragon de Magma,Aliado,4,3,Dragón,/img/cartas/es-16.jpg,0
+17,Dragon de Eter,Aliado,4,3,Dragón,/img/cartas/es-17.jpg,0
+18,Dragon Demonio,Aliado,0,5,Dragón,/img/cartas/es-18.jpg,0
+19,Dragon de Luz,Aliado,5,3,Dragón,/img/cartas/es-19.jpg,0
+20,Dragon de Aire,Aliado,4,4,Dragón,/img/cartas/es-20.jpg,0
+30,Mago Merlin,Aliado,4,3,Faerie,/img/cartas/es-30.jpg,0
+31,Mordred,Aliado,3,2,Faerie,/img/cartas/es-31.jpg,0
+32,Morgana,Aliado,4,2,Faerie,/img/cartas/es-32.jpg,0
+36,Las tres Hermanas,Aliado,3,1,Faerie,/img/cartas/es-36.jpg,0
+43,¡Desleal!,Talismán,3,,,/img/cartas/es-43.jpg,0
+44,Bola de Fuego,Talismán,2,,,/img/cartas/es-44.jpg,0
+46,Fe sin Limite,Talismán,1,,,/img/cartas/es-46.jpg,0
+47,Dragon Dorado,Talismán,0,,,/img/cartas/es-47.jpg,0
+50,Santo Grial,Talismán,1,,,/img/cartas/es-50.jpg,0
+52,Capa de Invisibilidad,Talismán,2,,,/img/cartas/es-52.jpg,0
+54,Aulladores Blancos,Talismán,2,,,/img/cartas/es-54.jpg,0
+59,Caballo Lunar,Talismán,4,,,/img/cartas/es-59.jpg,0
+60,Stonehage,Tótem,4,,,/img/cartas/es-60.jpg,0
+61,Totem Maldito,Tótem,5,,,/img/cartas/es-61.jpg,0
+63,Totem de Ruinas Elficas,Tótem,6,,,/img/cartas/es-63.jpg,0
+65,Woodhage,Tótem,3,,,/img/cartas/es-65.jpg,0
+68,Espada de Cristal,Arma,2,,,/img/cartas/es-68.jpg,0
+81,Sir Badallor,Aliado,4,2,Caballero,/img/cartas/es-81.jpg,0
+90,"Darg, el Semi Dragon",Aliado,4,2,Dragón,/img/cartas/es-90.jpg,0
+91,"Org, el Hechicero",Aliado,2,0,Dragón,/img/cartas/es-91.jpg,0
+93,Dragon Nival,Aliado,4,3,Dragón,/img/cartas/es-93.jpg,0
+97,Dragon Esmeralda,Aliado,3,1,Dragón,/img/cartas/es-97.jpg,0
+100,"Mulvan, el Dragon",Aliado,2,2,Dragón,/img/cartas/es-100.jpg,0
+103,Greenknight,Aliado,3,0,Faerie,/img/cartas/es-103.jpg,0
+113,Ettin,Aliado,4,3,Faerie,/img/cartas/es-113.jpg,0
+115,Cuatro Fuertes Vientos,Talismán,3,,,/img/cartas/es-115.jpg,0
+135,Totem de Cristal,Tótem,2,,,/img/cartas/es-135.jpg,0
+136,Totem de Nwyre,Tótem,3,,,/img/cartas/es-136.jpg,0
+140,Armadura Completa,Arma,2,,,/img/cartas/es-140.jpg,0
+144,Mandoble,Arma,3,,,/img/cartas/es-144.jpg,0
+146,Morning Star,Arma,3,,,/img/cartas/es-146.jpg,0
+157,Sir Mador del Portal,Aliado,1,3,Caballero,/img/cartas/es-157.jpg,0
+167,Dragonel,Aliado,3,5,Dragón,/img/cartas/es-167.jpg,0
+207,Totem Celta,Tótem,4,,,/img/cartas/es-207.jpg,0
+209,Totem de Hobgoblin,Tótem,6,,,/img/cartas/es-209.jpg,0
+212,Argusthat,Tótem,3,,,/img/cartas/es-212.jpg,0
+217,Dardos Envenenados,Arma,1,,,/img/cartas/es-217.jpg,0
+220,Alabarda,Arma,2,,,/img/cartas/es-220.jpg,0
+221,Codex Arturicus,Oro,,,,/img/cartas/es-221.jpg,0
+222,Azor,Oro,,,,/img/cartas/es-222.jpg,0
+223,Pergamino de Bardo,Oro,,,,/img/cartas/es-223.jpg,0
+224,Tierras Cultivadas,Oro,,,,/img/cartas/es-224.jpg,0
+225,Herrero,Oro,,,,/img/cartas/es-225.jpg,0
+226,Carruaje de Plata,Oro,,,,/img/cartas/es-226.jpg,0
+227,Escudo de Familia,Oro,,,,/img/cartas/es-227.jpg,0
+228,Tesoro Celta,Oro,,,,/img/cartas/es-228.jpg,0
+229,Votos Sagrados,Oro,,,,/img/cartas/es-229.jpg,0
+230,Arbol de los Viejos Dioses,Oro,,,,/img/cartas/es-230.jpg,0
+231,Anillo Faerie,Oro,,,,/img/cartas/es-231.jpg,0
+232,Joyeria Picta,Oro,,,,/img/cartas/es-232.jpg,0
+233,Collar de Dragon,Oro,,,,/img/cartas/es-233.jpg,0
+234,Flota Mercante,Oro,,,,/img/cartas/es-234.jpg,0
+235,Mesa Redonda,Oro,,,,/img/cartas/es-235.jpg,0
+236,El Mercado de Camelot,Oro,,,,/img/cartas/es-236.jpg,0
