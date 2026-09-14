@@ -29,26 +29,29 @@ function renderizarCartas(lista) {
     const card = document.createElement('div');
     card.classList.add('carta-card');
     
-    // Formatear la visualización de Coste y Fuerza
-    const costeTexto = carta.coste !== null && carta.coste !== undefined ? `Coste: ${carta.coste}` : '';
-    const fuerzaTexto = carta.fuerza !== null && carta.fuerza !== undefined ? `Fuerza: ${carta.fuerza}` : '';
-    
-    // Crear el bloque de estadísticas si la carta tiene coste o fuerza
-    const statsHTML = (costeTexto || fuerzaTexto) 
-      ? `<div class="carta-stats-badget">
-           ${costeTexto ? `<span>${costeTexto}</span>` : ''}
-           ${fuerzaTexto ? `<span>${fuerzaTexto}</span>` : ''}
-         </div>`
+    // Construir la línea de Coste y Fuerza si existen
+    const partesStats = [];
+    if (carta.coste !== null && carta.coste !== undefined) {
+      partesStats.push(`<strong>Coste:</strong> ${carta.coste}`);
+    }
+    if (carta.fuerza !== null && carta.fuerza !== undefined) {
+      partesStats.push(`<strong>Fuerza:</strong> ${carta.fuerza}`);
+    }
+
+    const lineaStatsHTML = partesStats.length > 0 
+      ? `<p class="carta-info-linea">${partesStats.join(' | ')}</p>` 
       : '';
 
     card.innerHTML = `
       <img src="${API_URL}${carta.imagen_url}" alt="${carta.nombre_carta}">
       <h3>${carta.nombre_carta}</h3>
-      <p><small>${carta.tipo} ${carta.raza ? '• ' + carta.raza : ''}</small></p>
-      ${statsHTML}
+      <div class="carta-detalles">
+        <p><strong>Tipo:</strong> ${carta.tipo}</p>
+        ${carta.raza ? `<p><strong>Raza:</strong> ${carta.raza}</p>` : ''}
+        ${lineaStatsHTML}
+      </div>
     `;
 
-    // Evento para abrir el modal con los detalles de la carta
     card.addEventListener('click', () => abrirModalCarta(carta));
     contenedor.appendChild(card);
   });
@@ -127,24 +130,66 @@ function configurarModal() {
   });
 }
 
+/**
+ * Abre el modal con los detalles completos de la carta.
+ */
 function abrirModalCarta(carta) {
   const modal = document.getElementById('modal-carta');
-  const imgModal = document.getElementById('modal-img');
-  const nombreModal = document.getElementById('modal-nombre');
-  const tipoRazaModal = document.getElementById('modal-tipo-raza');
-  const statsModal = document.getElementById('modal-stats');
+  if (!modal) return;
+
+  // Llenar la imagen y el título
+  const img = document.getElementById('modal-img');
+  const nombre = document.getElementById('modal-nombre');
+  const tipoRaza = document.getElementById('modal-tipo-raza');
+  const stats = document.getElementById('modal-stats');
+
+  if (img) img.src = `${API_URL}${carta.imagen_url}`;
+  if (nombre) nombre.textContent = carta.nombre_carta;
+  
+  if (tipoRaza) {
+    tipoRaza.textContent = `${carta.tipo} ${carta.raza ? '• ' + carta.raza : ''}`;
+  }
+
+  // Llenar coste y fuerza en el contenedor de estadísticas
+  if (stats) {
+    const partesStats = [];
+    if (carta.coste !== null && carta.coste !== undefined) {
+      partesStats.push(`<strong>Coste:</strong> ${carta.coste}`);
+    }
+    if (carta.fuerza !== null && carta.fuerza !== undefined) {
+      partesStats.push(`<strong>Fuerza:</strong> ${carta.fuerza}`);
+    }
+    
+    stats.innerHTML = partesStats.length > 0 
+      ? partesStats.join(' | ') 
+      : '<em>Sin estadísticas adicionales</em>';
+  }
+
+  // Activar la clase definida en tu CSS para aplicar display: flex y centrar
+  modal.classList.add('active');
+}
+
+/**
+ * Configura los eventos para cerrar el modal (clic en X o fuera de la caja).
+ */
+function configurarModal() {
+  const modal = document.getElementById('modal-carta');
+  const btnCerrar = document.getElementById('btn-cerrar-modal');
 
   if (!modal) return;
 
-  imgModal.src = `${API_URL}${carta.imagen_url}`;
-  imgModal.alt = carta.nombre_carta;
-  nombreModal.textContent = carta.nombre_carta;
-  tipoRazaModal.textContent = `${carta.tipo} ${carta.raza ? '• ' + carta.raza : ''}`;
-  
-  statsModal.innerHTML = `
-    ${carta.coste !== null ? `<p><strong>Coste:</strong> ${carta.coste}</p>` : ''}
-    ${carta.fuerza !== null ? `<p><strong>Fuerza:</strong> ${carta.fuerza}</p>` : ''}
-  `;
+  const cerrar = () => {
+    modal.classList.remove('active');
+  };
 
-  modal.style.display = 'block';
+  if (btnCerrar) {
+    btnCerrar.addEventListener('click', cerrar);
+  }
+
+  // Cerrar si se hace clic fuera del contenido (en el fondo oscuro)
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) {
+      cerrar();
+    }
+  });
 }
