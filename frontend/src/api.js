@@ -1,5 +1,7 @@
 // URL base del backend Node.js / Express
-const API_URL = 'http://localhost:3000';
+const API_URL = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
+  ? 'http://localhost:3000'
+  : 'https://myl-link-backend.onrender.com';
 
 /**
  * Obtiene el listado completo de cartas desde el backend / MySQL.
