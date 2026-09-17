@@ -92,6 +92,22 @@ function inicializarAuth() {
  * Configura la apertura, cierre y envío del modal de inicio de sesión.
  */
 function configurarModalLogin() {
+  // Delegación global para botones de apertura y cierre de login
+  document.addEventListener('click', (evento) => {
+    const btnLogin = evento.target.closest('#btn-abrir-login, .btn-abrir-login, #link-ir-login');
+    if (btnLogin) {
+      evento.preventDefault();
+      abrirModalLogin();
+      return;
+    }
+    const btnCerrar = evento.target.closest('#btn-cerrar-login, .btn-cerrar-login');
+    if (btnCerrar) {
+      evento.preventDefault();
+      cerrarModalLogin();
+      return;
+    }
+  });
+
   const btnAbrir = document.getElementById('btn-abrir-login');
   const btnCerrar = document.getElementById('btn-cerrar-login');
   const modal = document.getElementById('modal-login');

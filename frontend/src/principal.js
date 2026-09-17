@@ -5,20 +5,22 @@
 document.addEventListener('DOMContentLoaded', async () => {
   console.log('Iniciando MyL Link...');
 
-  // 1. Inicializar la navegación SPA
+  // 1. Inicializar navegación SPA y autenticación de inmediato (sin esperar a la red)
   inicializarNavegacion();
-
-  // 2. Obtener las cartas desde el backend MySQL
-  const cartas = await obtenerCartasAPI();
-
-  // 3. Inicializar los módulos con los datos obtenidos
-  inicializarCatalogo(cartas);
-  inicializarMazos(cartas);
   if (typeof inicializarAuth === 'function') {
     inicializarAuth();
   }
   if (typeof inicializarAdmin === 'function') {
     inicializarAdmin();
+  }
+
+  // 2. Obtener las cartas desde el backend de forma asíncrona
+  try {
+    const cartas = await obtenerCartasAPI();
+    inicializarCatalogo(cartas);
+    inicializarMazos(cartas);
+  } catch (err) {
+    console.error('Error al cargar catálogo inicial:', err);
   }
 
   console.log('Aplicación lista y módulos cargados.');
