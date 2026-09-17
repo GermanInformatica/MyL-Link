@@ -1,4 +1,4 @@
--- Destrucción de tablas existentes respetando el orden de dependencias
+-- Destrucción de tablas existentes
 DROP TABLE IF EXISTS VALORACION;
 DROP TABLE IF EXISTS FAVORITO;
 DROP TABLE IF EXISTS MAZO_CARTA;
@@ -33,8 +33,8 @@ CREATE TABLE MAZO (
     id_mazo INT AUTO_INCREMENT PRIMARY KEY,
     nombre_mazo VARCHAR(100) NOT NULL,
     es_publico BOOLEAN NOT NULL DEFAULT FALSE,
-    descripcion TEXT NULL,
-    fecha_creacion DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    descripcion_mazo TEXT NULL,
+    fecha_creacion_mazo DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     id_usuario INT NOT NULL,
     CONSTRAINT fk_mazo_usuario FOREIGN KEY (id_usuario) 
         REFERENCES USUARIO(id_usuario) 

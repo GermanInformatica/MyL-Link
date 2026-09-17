@@ -23,6 +23,9 @@ function inicializarNavegacion() {
       const seccionActiva = document.getElementById(vistaDestino);
       if (seccionActiva) {
         seccionActiva.classList.add('active');
+        if (vistaDestino === 'vista-mazos' && typeof cargarGaleriaMazos === 'function') {
+          cargarGaleriaMazos();
+        }
       }
 
       // Actualizar el estado 'active' en la barra de navegación principal

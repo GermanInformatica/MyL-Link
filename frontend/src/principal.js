@@ -14,6 +14,12 @@ document.addEventListener('DOMContentLoaded', async () => {
   // 3. Inicializar los módulos con los datos obtenidos
   inicializarCatalogo(cartas);
   inicializarMazos(cartas);
+  if (typeof inicializarAuth === 'function') {
+    inicializarAuth();
+  }
+  if (typeof inicializarAdmin === 'function') {
+    inicializarAdmin();
+  }
 
   console.log('Aplicación lista y módulos cargados.');
 });
