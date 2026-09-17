@@ -65,13 +65,11 @@ app.get('/api/mazos', async (req, res) => {
         m.fecha_creacion_mazo,
         m.fecha_creacion_mazo AS fecha_creacion, 
         u.nombre_usuario,
-        COALESCE(SUM(mc.cantidad), 0) AS total_cartas
-      FROM mazo m
-      LEFT JOIN usuario u ON m.id_usuario = u.id_usuario
-      LEFT JOIN mazo_carta mc ON m.id_mazo = mc.id_mazo
+        (SELECT COALESCE(SUM(cantidad), 0) FROM MAZO_CARTA WHERE id_mazo = m.id_mazo) AS total_cartas
+      FROM MAZO m
+      LEFT JOIN USUARIO u ON m.id_usuario = u.id_usuario
       WHERE m.es_publico = 1
-      GROUP BY m.id_mazo, m.nombre_mazo, m.descripcion_mazo, m.es_publico, m.fecha_creacion_mazo, u.nombre_usuario
-        ORDER BY m.fecha_creacion_mazo DESC
+      ORDER BY m.fecha_creacion_mazo DESC
     `);
 
     res.json({
@@ -417,11 +415,9 @@ app.get('/api/admin/usuarios', async (req, res) => {
         u.correo, 
         u.rol, 
         u.fecha_registro,
-        COUNT(m.id_mazo) AS total_mazos
-      FROM usuario u
-      LEFT JOIN mazo m ON u.id_usuario = m.id_usuario
-      GROUP BY u.id_usuario, u.nombre_usuario, u.correo, u.rol, u.fecha_registro
-        ORDER BY u.fecha_registro DESC
+        (SELECT COUNT(*) FROM MAZO WHERE id_usuario = u.id_usuario) AS total_mazos
+      FROM USUARIO u
+      ORDER BY u.fecha_registro DESC
     `);
 
     res.json({
@@ -511,4 +507,5 @@ app.post('/api/admin/cartas', async (req, res) => {
 app.listen(PORT, () => {
   console.log(`Servidor escuchando en http://localhost:${PORT}`);
 });
+
 
