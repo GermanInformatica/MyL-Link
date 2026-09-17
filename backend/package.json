@@ -4,8 +4,8 @@
   "description": "Servidor backend API REST para la plataforma web",
   "main": "servidor.js",
   "scripts": {
-    "start": "node --env-file=.env servidor.js",
-    "dev": "node --watch --env-file=.env servidor.js"
+    "start": "node servidor.js",
+    "dev": "node --watch --env-file-if-exists=.env servidor.js"
   },
   "keywords": [],
   "author": "",
