@@ -139,7 +139,7 @@ async function registrarUsuarioAPI(datosUsuario) {
 }
 
 /**
- * Inicia sesión de un usuario contra la API REST.
+ * Inicia sesi?n de un usuario contra la API REST.
  */
 async function iniciarSesionAPI(credenciales) {
   try {
@@ -153,7 +153,7 @@ async function iniciarSesionAPI(credenciales) {
 
     return await respuesta.json();
   } catch (error) {
-    console.error('Error al iniciar sesión en la API:', error);
+    console.error('Error al iniciar sesi?n en la API:', error);
     return {
       exito: false,
       mensaje: 'Error de conexión con el servidor.'
@@ -162,7 +162,7 @@ async function iniciarSesionAPI(credenciales) {
 }
 
 /**
- * Obtiene las métricas y estadísticas del sistema para el panel de administración.
+ * Obtiene las métricas y estad?sticas del sistema para el panel de administración.
  */
 async function obtenerEstadisticasAdminAPI() {
   try {
@@ -170,7 +170,7 @@ async function obtenerEstadisticasAdminAPI() {
     if (!respuesta.ok) throw new Error(`Error HTTP: ${respuesta.status}`);
     return await respuesta.json();
   } catch (error) {
-    console.error('Error al obtener estadísticas del admin:', error);
+    console.error('Error al obtener estad?sticas del admin:', error);
     return { exito: false, mensaje: 'Error al conectar con el servidor.' };
   }
 }
@@ -190,7 +190,7 @@ async function obtenerUsuariosAdminAPI() {
 }
 
 /**
- * Registra una nueva carta en el catálogo (Función exclusiva de Administrador).
+ * Registra una nueva carta en el cat?logo (Función exclusiva de Administrador).
  */
 async function agregarCartaAdminAPI(datosCarta) {
   try {

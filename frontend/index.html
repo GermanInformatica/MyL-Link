@@ -8,7 +8,7 @@
 </head>
 <body>
 
-  <!-- BARRA DE NAVEGACIÓN -->
+  <!-- BARRA DE NAVEGACI?N -->
   <header class="navbar">
     <div class="logo">
       <a href="#" class="nav-link" data-target="vista-inicio">
@@ -25,12 +25,12 @@
       </ul>
     </nav>
     <div class="auth-buttons">
-      <button id="btn-abrir-login" class="btn-secondary">Iniciar Sesión</button>
+      <button id="btn-abrir-login" class="btn-secondary">Iniciar Sesi?n</button>
       <button class="btn-primary nav-btn" data-target="vista-registro">Registrarse</button>
     </div>
   </header>
 
-  <!-- CONTENEDOR DINÁMICO DE VISTAS -->
+  <!-- CONTENEDOR din?mico DE VISTAS -->
   <main id="app-content">
 
     <!-- 1. VISTA INICIO -->
@@ -38,9 +38,9 @@
       <div class="hero">
         <div class="hero-content">
           <h1>Explora el Universo de <br><span>Mitos y Leyendas</span></h1>
-          <p>Consulta el catálogo completo de Espada Sagrada, gestiona tus mazos y analiza tus estrategias.</p>
+          <p>Consulta el cat?logo completo de Espada Sagrada, gestiona tus mazos y analiza tus estrategias.</p>
           <div class="hero-buttons">
-            <button class="btn-primary btn-large nav-btn" data-target="vista-cartas">Ver Catálogo</button>
+            <button class="btn-primary btn-large nav-btn" data-target="vista-cartas">Ver Cat?logo</button>
             <button class="btn-secondary btn-large nav-btn" data-target="vista-mazos">Explorar Mazos</button>
           </div>
         </div>
@@ -51,8 +51,8 @@
     <section id="vista-cartas" class="vista">
       <div class="container">
         <div class="section-header">
-          <h2>Catálogo de Cartas - <span>Espada Sagrada</span></h2>
-          <p>Explora y filtra las cartas registradas en el catálogo.</p>
+          <h2>Cat?logo de Cartas - <span>Espada Sagrada</span></h2>
+          <p>Explora y filtra las cartas registradas en el cat?logo.</p>
         </div>
 
         <!-- PANEL DE FILTROS -->
@@ -65,8 +65,8 @@
             <select id="filtro-tipo">
               <option value="">Todos los Tipos</option>
               <option value="Aliado">Aliado</option>
-              <option value="Talismán">Talismán</option>
-              <option value="Tótem">Tótem</option>
+              <option value="Talism?n">Talism?n</option>
+              <option value="T?tem">T?tem</option>
               <option value="Arma">Arma</option>
               <option value="Oro">Oro</option>
             </select>
@@ -76,7 +76,7 @@
             <select id="filtro-raza">
               <option value="">Todas las Razas</option>
               <option value="Caballero">Caballero</option>
-              <option value="Dragón">Dragón</option>
+              <option value="Drag?n">Drag?n</option>
               <option value="Faerie">Faerie</option>
             </select>
           </div>
@@ -166,8 +166,8 @@
                   <select id="deck-filtro-tipo">
                     <option value="">Tipo (Todos)</option>
                     <option value="Aliado">Aliado</option>
-                    <option value="Talismán">Talismán</option>
-                    <option value="Tótem">Tótem</option>
+                    <option value="Talism?n">Talism?n</option>
+                    <option value="T?tem">T?tem</option>
                     <option value="Arma">Arma</option>
                     <option value="Oro">Oro</option>
                   </select>
@@ -176,7 +176,7 @@
                   <select id="deck-filtro-raza">
                     <option value="">Raza (Todas)</option>
                     <option value="Caballero">Caballero</option>
-                    <option value="Dragón">Dragón</option>
+                    <option value="Drag?n">Drag?n</option>
                     <option value="Faerie">Faerie</option>
                   </select>
                 </div>
@@ -223,11 +223,11 @@
               <div class="mazo-opciones">
                 <label class="checkbox-container">
                   <input type="checkbox" id="chk-es-publico" checked>
-                  <span>Mazo público para la comunidad</span>
+                  <span>Mazo p?blico para la comunidad</span>
                 </label>
               </div>
 
-              <div class="resumen-tipos-mazo">
+              <div class="resumen?tipos-mazo">
                 <span>Aliados: <strong id="cant-aliados">0</strong></span>
                 <span>Talismanes: <strong id="cant-talismanes">0</strong></span>
                 <span>Oros: <strong id="cant-oros">0</strong></span>
@@ -235,7 +235,7 @@
               </div>
 
               <div id="lista-cartas-mazo" class="mazo-lista-items">
-                <p class="empty-deck-msg">Tu mazo está vacío. Haz clic en las cartas del catálogo para agregarlas.</p>
+                <p class="empty-deck-msg">Tu mazo está vacío. Haz clic en las cartas del cat?logo para agregarlas.</p>
               </div>
 
               <div class="mazo-acciones">
@@ -283,13 +283,13 @@
             </div>
 
             <div class="form-group">
-              <label for="reg-password">Contraseña</label>
+              <label for="reg-password">Contrase?a</label>
               <input type="password" id="reg-password" placeholder="Mínimo 6 caracteres" required autocomplete="new-password">
             </div>
 
             <div class="form-group">
-              <label for="reg-password-confirm">Confirmar Contraseña</label>
-              <input type="password" id="reg-password-confirm" placeholder="Repite tu contraseña" required autocomplete="new-password">
+              <label for="reg-password-confirm">Confirmar Contrase?a</label>
+              <input type="password" id="reg-password-confirm" placeholder="Repite tu contrase?a" required autocomplete="new-password">
             </div>
 
             <div id="reg-alerta" class="auth-alerta" style="display: none;"></div>
@@ -298,7 +298,7 @@
           </form>
 
           <div class="auth-footer">
-            <p>¿Ya tienes una cuenta? <a href="#" id="link-ir-login">Inicia sesión</a></p>
+            <p>¿Ya tienes una cuenta? <a href="#" id="link-ir-login">Inicia sesi?n</a></p>
           </div>
         </div>
       </div>
@@ -312,32 +312,32 @@
         <div id="subvista-admin-menu">
           <div class="section-header">
             <h2>Panel de Control - <span>Administración</span></h2>
-            <p>Gestión centralizada del sistema, cuentas de usuario y catálogo de cartas.</p>
+            <p>Gesti?n centralizada del sistema, cuentas de usuario y cat?logo de cartas.</p>
           </div>
 
           <div class="admin-grid-menu">
-            <!-- Tarjeta 1: Gestión de Usuarios -->
+            <!-- Tarjeta 1: Gesti?n de Usuarios -->
             <div class="admin-menu-card">
               <div class="admin-card-icon">👥</div>
-              <h3>Gestión de Usuarios</h3>
+              <h3>Gesti?n de Usuarios</h3>
               <p>Supervisa las cuentas registradas, roles de acceso y actividad de los usuarios.</p>
               <button id="btn-admin-ir-usuarios" class="btn-primary btn-large btn-block">Gestionar Usuarios &rarr;</button>
             </div>
 
-            <!-- Tarjeta 2: Gestión de Cartas -->
+            <!-- Tarjeta 2: Gesti?n de Cartas -->
             <div class="admin-menu-card">
               <div class="admin-card-icon">🃏</div>
-              <h3>Gestión de Cartas</h3>
-              <p>Incorpora nuevas cartas al catálogo de Espada Sagrada con sus razas, costes y fuerzas.</p>
+              <h3>Gesti?n de Cartas</h3>
+              <p>Incorpora nuevas cartas al cat?logo de Espada Sagrada con sus razas, costes y fuerzas.</p>
               <button id="btn-admin-ir-cartas" class="btn-primary btn-large btn-block">Gestionar Cartas &rarr;</button>
             </div>
 
-            <!-- Tarjeta 3: Estadísticas -->
+            <!-- Tarjeta 3: Estad?sticas -->
             <div class="admin-menu-card">
               <div class="admin-card-icon">📊</div>
-              <h3>Estadísticas del Sistema</h3>
-              <p>Consulta métricas de uso, cantidad de mazos construidos y cartas más utilizadas.</p>
-              <button id="btn-admin-ir-stats" class="btn-primary btn-large btn-block">Ver Estadísticas &rarr;</button>
+              <h3>Estad?sticas del Sistema</h3>
+              <p>Consulta métricas de uso, cantidad de mazos construidos y cartas m?s utilizadas.</p>
+              <button id="btn-admin-ir-stats" class="btn-primary btn-large btn-block">Ver Estad?sticas &rarr;</button>
             </div>
           </div>
         </div>
@@ -346,7 +346,7 @@
         <div id="subvista-admin-usuarios" style="display: none;">
           <div class="section-header-admin">
             <div>
-              <h2>Gestión de <span>Usuarios</span></h2>
+              <h2>Gesti?n de <span>Usuarios</span></h2>
               <p>Listado de cuentas registradas en la base de datos MySQL.</p>
             </div>
             <button class="btn-secondary btn-admin-volver">&larr; Volver al Panel</button>
@@ -443,7 +443,7 @@
         <div id="subvista-admin-stats" style="display: none;">
           <div class="section-header-admin">
             <div>
-              <h2>Estadísticas del <span>Sistema</span></h2>
+              <h2>Estad?sticas del <span>Sistema</span></h2>
               <p>Métricas y actividad general de la plataforma MyL Link.</p>
             </div>
             <button class="btn-secondary btn-admin-volver">&larr; Volver al Panel</button>
@@ -464,7 +464,7 @@
             </div>
             <div class="stat-kpi-card">
               <span class="stat-kpi-num" id="stat-total-cartas">0</span>
-              <span class="stat-kpi-label">🃏 Cartas en Catálogo</span>
+              <span class="stat-kpi-label">🃏 Cartas en Cat?logo</span>
             </div>
           </div>
 
@@ -482,7 +482,7 @@
                 </thead>
                 <tbody id="tbody-admin-top-cartas">
                   <tr>
-                    <td colspan="4" style="text-align: center; color: #888;">Cargando estadísticas...</td>
+                    <td colspan="4" style="text-align: center; color: #888;">Cargando Estad?sticas...</td>
                   </tr>
                 </tbody>
               </table>
@@ -524,8 +524,8 @@
       <div class="modal-mazo-header">
         <h2 id="modal-mazo-nombre">Nombre del Mazo</h2>
         <span id="modal-mazo-autor" class="mazo-autor">Por: Autor</span>
-        <p id="modal-mazo-descripcion" class="modal-mazo-desc">Descripción del mazo...</p>
-        <div id="modal-mazo-resumen" class="resumen-tipos-mazo" style="margin-top: 15px;"></div>
+        <p id="modal-mazo-descripcion" class="modal-mazo-desc">Descripci?n del mazo...</p>
+        <div id="modal-mazo-resumen" class="resumen?tipos-mazo" style="margin-top: 15px;"></div>
       </div>
       <div class="modal-mazo-body">
         <h3 style="color: #e67e22; margin-bottom: 12px; font-size: 1.1rem;">Cartas en este Mazo (50)</h3>
@@ -541,7 +541,7 @@
     <div class="modal-contenido modal-auth-contenido">
       <button class="cerrar-modal" id="btn-cerrar-login" aria-label="Cerrar modal">&times;</button>
       <div class="auth-header" style="margin-bottom: 20px;">
-        <h2>Iniciar <span>Sesión</span></h2>
+        <h2>Iniciar <span>Sesi?n</span></h2>
         <p>Ingresa a tu cuenta para gestionar tus mazos.</p>
       </div>
 
@@ -552,8 +552,8 @@
         </div>
 
         <div class="form-group">
-          <label for="login-password">Contraseña</label>
-          <input type="password" id="login-password" placeholder="Tu contraseña" required autocomplete="current-password">
+          <label for="login-password">Contrase?a</label>
+          <input type="password" id="login-password" placeholder="Tu contrase?a" required autocomplete="current-password">
         </div>
 
         <div id="login-alerta" class="auth-alerta" style="display: none;"></div>

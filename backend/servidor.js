@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const path = require('path'); // Importar el módulo nativo path
-const crypto = require('crypto'); // Para encriptar contraseñas
+const crypto = require('crypto'); // Para encriptar contrase?as
 const db = require('./conexion');
 
 const app = express();
@@ -17,7 +17,7 @@ app.get('/', (req, res) => {
   res.send('API REST de MyL Link funcionando correctamente');
 });
 
-// Endpoint para obtener todas las cartas del catálogo
+// Endpoint para obtener todas las cartas del cat?logo
 app.get('/api/cartas', async (req, res) => {
   try {
     const [cartas] = await db.query('SELECT * FROM carta ORDER BY id_carta ASC');
@@ -47,12 +47,12 @@ app.get('/api/cartas', async (req, res) => {
     console.error('Error al consultar las cartas:', error);
     res.status(500).json({
       exito: false,
-      mensaje: 'Error interno al consultar el catálogo de cartas'
+      mensaje: 'Error interno al consultar el cat?logo de cartas'
     });
   }
 });
 
-// Endpoint para obtener todos los mazos públicos
+// Endpoint para obtener todos los mazos p?blicos
 app.get('/api/mazos', async (req, res) => {
   try {
     const [mazos] = await db.query(`
@@ -134,8 +134,8 @@ app.get('/api/mazos/:id', async (req, res) => {
       ORDER BY 
         CASE c.tipo
           WHEN 'Aliado' THEN 1
-          WHEN 'Talismán' THEN 2
-          WHEN 'Tótem' THEN 3
+          WHEN 'Talism?n' THEN 2
+          WHEN 'T?tem' THEN 3
           WHEN 'Arma' THEN 4
           WHEN 'Oro' THEN 5
           ELSE 6
@@ -170,7 +170,7 @@ app.post('/api/mazos', async (req, res) => {
     if (!id_usuario) {
       return res.status(401).json({
         exito: false,
-        mensaje: 'Debes iniciar sesión para guardar un mazo.'
+        mensaje: 'Debes iniciar sesi?n para guardar un mazo.'
       });
     }
 
@@ -253,7 +253,7 @@ app.post('/api/auth/registro', async (req, res) => {
     if (contrasena.length < 6) {
       return res.status(400).json({
         exito: false,
-        mensaje: 'La contraseña debe tener al menos 6 caracteres.'
+        mensaje: 'La contrase?a debe tener al menos 6 caracteres.'
       });
     }
 
@@ -273,7 +273,7 @@ app.post('/api/auth/registro', async (req, res) => {
       });
     }
 
-    // 3. Hashear la contraseña con SHA-256
+    // 3. Hashear la contrase?a con SHA-256
     const contrasenaHash = crypto.createHash('sha256').update(contrasena).digest('hex');
 
     // 4. Insertar en la tabla USUARIO
@@ -302,7 +302,7 @@ app.post('/api/auth/registro', async (req, res) => {
   }
 });
 
-// Endpoint para el inicio de sesión (Login)
+// Endpoint para el inicio de sesi?n (Login)
 app.post('/api/auth/login', async (req, res) => {
   try {
     const { correo, contrasena } = req.body;
@@ -310,7 +310,7 @@ app.post('/api/auth/login', async (req, res) => {
     if (!correo || !contrasena) {
       return res.status(400).json({
         exito: false,
-        mensaje: 'Debes ingresar tu correo y contraseña.'
+        mensaje: 'Debes ingresar tu correo y contrase?a.'
       });
     }
 
@@ -325,20 +325,20 @@ app.post('/api/auth/login', async (req, res) => {
     if (usuarios.length === 0) {
       return res.status(401).json({
         exito: false,
-        mensaje: 'Correo o contraseña incorrectos.'
+        mensaje: 'Correo o contrase?a incorrectos.'
       });
     }
 
     const usuario = usuarios[0];
     const contrasenaHash = crypto.createHash('sha256').update(contrasena).digest('hex');
 
-    // 2. Comprobar contraseña (soporta hash SHA-256 o texto directo para usuarios de prueba antiguos)
+    // 2. Comprobar contrase?a (soporta hash SHA-256 o texto directo para usuarios de prueba antiguos)
     const esValida = (usuario.contrasena_hash === contrasenaHash) || (usuario.contrasena_hash === contrasena);
 
     if (!esValida) {
       return res.status(401).json({
         exito: false,
-        mensaje: 'Correo o contraseña incorrectos.'
+        mensaje: 'Correo o contrase?a incorrectos.'
       });
     }
 
@@ -354,10 +354,10 @@ app.post('/api/auth/login', async (req, res) => {
     });
 
   } catch (error) {
-    console.error('Error al iniciar sesión:', error);
+    console.error('Error al iniciar sesi?n:', error);
     res.status(500).json({
       exito: false,
-      mensaje: 'Error interno del servidor al procesar el inicio de sesión.'
+      mensaje: 'Error interno del servidor al procesar el inicio de sesi?n.'
     });
   }
 });
@@ -366,7 +366,7 @@ app.post('/api/auth/login', async (req, res) => {
 // ENDPOINTS DE ADMINISTRACIÓN (PANEL DE CONTROL)
 // ==========================================
 
-// 1. Estadísticas generales del sistema
+// 1. Estad?sticas generales del sistema
 app.get('/api/admin/estadisticas', async (req, res) => {
   try {
     const [[{ totalUsuarios }]] = await db.query('SELECT COUNT(*) AS totalUsuarios FROM usuario');
@@ -374,7 +374,7 @@ app.get('/api/admin/estadisticas', async (req, res) => {
     const [[{ totalMazosPublicos }]] = await db.query('SELECT COUNT(*) AS totalMazosPublicos FROM mazo WHERE es_publico = 1');
     const [[{ totalCartas }]] = await db.query('SELECT COUNT(*) AS totalCartas FROM carta');
 
-    // Top cartas más utilizadas en los mazos
+    // Top cartas m?s utilizadas en los mazos
     const [topCartas] = await db.query(`
       SELECT 
         c.id_carta, 
@@ -400,12 +400,12 @@ app.get('/api/admin/estadisticas', async (req, res) => {
       }
     });
   } catch (error) {
-    console.error('Error al obtener estadísticas del admin:', error);
-    res.status(500).json({ exito: false, mensaje: 'Error al consultar estadísticas del sistema.' });
+    console.error('Error al obtener estad?sticas del admin:', error);
+    res.status(500).json({ exito: false, mensaje: 'Error al consultar estad?sticas del sistema.' });
   }
 });
 
-// 2. Gestión de Usuarios: Listado completo
+// 2. Gesti?n de Usuarios: Listado completo
 app.get('/api/admin/usuarios', async (req, res) => {
   try {
     const [usuarios] = await db.query(`
@@ -431,7 +431,7 @@ app.get('/api/admin/usuarios', async (req, res) => {
   }
 });
 
-// 2.1 Gestión de Usuarios: Eliminar usuario (y sus mazos en cascada)
+// 2.1 Gesti?n de Usuarios: Eliminar usuario (y sus mazos en cascada)
 app.delete('/api/admin/usuarios/:id', async (req, res) => {
   try {
     const idUsuario = req.params.id;
@@ -469,7 +469,7 @@ app.delete('/api/admin/usuarios/:id', async (req, res) => {
   }
 });
 
-// 3. Gestión de Cartas: Agregar nueva carta al catálogo
+// 3. Gesti?n de Cartas: Agregar nueva carta al cat?logo
 app.post('/api/admin/cartas', async (req, res) => {
   try {
     const { nombre_carta, tipo, coste, fuerza, raza, imagen_url } = req.body;
@@ -495,7 +495,7 @@ app.post('/api/admin/cartas', async (req, res) => {
 
     res.status(201).json({
       exito: true,
-      mensaje: `¡Carta "${nombre_carta.trim()}" agregada exitosamente al catálogo!`,
+      mensaje: `¡Carta "${nombre_carta.trim()}" agregada exitosamente al cat?logo!`,
       id_carta: resultado.insertId
     });
   } catch (error) {

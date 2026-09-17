@@ -1,5 +1,5 @@
 /**
- * Módulo de Autenticación y Gestión de Usuarios (Registro e Inicio de Sesión).
+ * Módulo de Autenticaci?n y Gesti?n de Usuarios (Registro e Inicio de Sesi?n).
  */
 
 /**
@@ -26,7 +26,7 @@ function ocultarAlertaRegistro() {
 }
 
 /**
- * Muestra un mensaje de alerta en el modal de inicio de sesión.
+ * Muestra un mensaje de alerta en el modal de inicio de sesi?n.
  */
 function mostrarAlertaLogin(mensaje, tipo = 'error') {
   const alerta = document.getElementById('login-alerta');
@@ -38,7 +38,7 @@ function mostrarAlertaLogin(mensaje, tipo = 'error') {
 }
 
 /**
- * Oculta la alerta del modal de inicio de sesión.
+ * Oculta la alerta del modal de inicio de sesi?n.
  */
 function ocultarAlertaLogin() {
   const alerta = document.getElementById('login-alerta');
@@ -49,7 +49,7 @@ function ocultarAlertaLogin() {
 }
 
 /**
- * Abre la ventana modal de inicio de sesión.
+ * Abre la ventana modal de inicio de sesi?n.
  */
 function abrirModalLogin() {
   const modal = document.getElementById('modal-login');
@@ -65,7 +65,7 @@ function abrirModalLogin() {
 }
 
 /**
- * Cierra la ventana modal de inicio de sesión.
+ * Cierra la ventana modal de inicio de sesi?n.
  */
 function cerrarModalLogin() {
   const modal = document.getElementById('modal-login');
@@ -75,7 +75,7 @@ function cerrarModalLogin() {
 }
 
 /**
- * Inicializa los eventos del módulo de autenticación (Registro y Modal de Login).
+ * Inicializa los eventos del módulo de autenticaci?n (Registro y Modal de Login).
  */
 function inicializarAuth() {
   // 1. Configurar eventos de la ventana modal de Login
@@ -84,12 +84,12 @@ function inicializarAuth() {
   // 2. Configurar el formulario de Registro
   configurarFormularioRegistro();
 
-  // 3. Revisar el estado de sesión guardado
+  // 3. Revisar el estado de sesi?n guardado
   actualizarEstadoUsuarioUI();
 }
 
 /**
- * Configura la apertura, cierre y envío del modal de inicio de sesión.
+ * Configura la apertura, cierre y envío del modal de inicio de sesi?n.
  */
 function configurarModalLogin() {
   const btnAbrir = document.getElementById('btn-abrir-login');
@@ -165,7 +165,7 @@ function configurarModalLogin() {
       try {
         if (btnSubmit) {
           btnSubmit.disabled = true;
-          btnSubmit.textContent = 'Iniciando sesión...';
+          btnSubmit.textContent = 'Iniciando sesi?n...';
         }
 
         const respuesta = await iniciarSesionAPI({
@@ -174,7 +174,7 @@ function configurarModalLogin() {
         });
 
         if (respuesta && respuesta.exito) {
-          // Guardar sesión en el navegador
+          // Guardar sesi?n en el navegador
           if (respuesta.usuario) {
             localStorage.setItem('id_usuario', respuesta.usuario.id_usuario);
             localStorage.setItem('nombre_usuario', respuesta.usuario.nombre_usuario);
@@ -194,7 +194,7 @@ function configurarModalLogin() {
         }
 
       } catch (error) {
-        console.error('Error al iniciar sesión:', error);
+        console.error('Error al iniciar sesi?n:', error);
         mostrarAlertaLogin('Error al conectar con el servidor.');
       } finally {
         if (btnSubmit) {
@@ -234,13 +234,13 @@ function configurarFormularioRegistro() {
     }
 
     if (password.length < 6) {
-      mostrarAlertaRegistro('La contraseña debe tener al menos 6 caracteres.');
+      mostrarAlertaRegistro('La contrase?a debe tener al menos 6 caracteres.');
       if (inputPassword) inputPassword.focus();
       return;
     }
 
     if (password !== passwordConfirm) {
-      mostrarAlertaRegistro('Las contraseñas no coinciden. Verifícalas.');
+      mostrarAlertaRegistro('Las contrase?as no coinciden. Verifícalas.');
       if (inputPasswordConfirm) inputPasswordConfirm.focus();
       return;
     }
@@ -290,7 +290,7 @@ function configurarFormularioRegistro() {
 }
 
 /**
- * Actualiza la barra de navegación según el estado de la sesión.
+ * Actualiza la barra de navegación según el estado de la sesi?n.
  */
 function actualizarEstadoUsuarioUI() {
   const nombreUsuario = localStorage.getItem('nombre_usuario');
@@ -308,13 +308,13 @@ function actualizarEstadoUsuarioUI() {
   if (nombreUsuario) {
     contenedorBotones.innerHTML = `
       <span class="usuario-conectado">Hola, <strong>${nombreUsuario}</strong></span>
-      <button id="btn-cerrar-sesion" class="btn-secondary" style="padding: 6px 14px; font-size: 0.85rem;">Cerrar Sesión</button>
+      <button id="btn-cerrar-sesion" class="btn-secondary" style="padding: 6px 14px; font-size: 0.85rem;">Cerrar Sesi?n</button>
     `;
 
     const btnCerrar = document.getElementById('btn-cerrar-sesion');
     if (btnCerrar) {
       btnCerrar.onclick = () => {
-        if (confirm('¿Deseas cerrar tu sesión actual?')) {
+        if (confirm('¿Deseas cerrar tu sesi?n actual?')) {
           localStorage.removeItem('id_usuario');
           localStorage.removeItem('nombre_usuario');
           localStorage.removeItem('correo_usuario');
@@ -325,7 +325,7 @@ function actualizarEstadoUsuarioUI() {
     }
   } else {
     contenedorBotones.innerHTML = `
-      <button id="btn-abrir-login" class="btn-secondary">Iniciar Sesión</button>
+      <button id="btn-abrir-login" class="btn-secondary">Iniciar Sesi?n</button>
       <button class="btn-primary nav-btn" data-target="vista-registro">Registrarse</button>
     `;
 
