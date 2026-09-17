@@ -268,17 +268,32 @@ footer {
 
 .cerrar-modal {
   position: absolute;
-  top: 15px;
-  right: 20px;
-  color: #aaa;
-  font-size: 28px;
-  font-weight: bold;
+  top: 16px;
+  right: 18px;
+  width: 36px;
+  height: 36px;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 50%;
+  color: #cbd5e0;
+  font-size: 22px;
+  font-weight: 400;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
-  transition: color 0.2s;
+  transition: all 0.25s ease;
+  padding: 0;
+  outline: none;
+  z-index: 10;
 }
 
 .cerrar-modal:hover {
-  color: #e67e22;
+  background: rgba(230, 126, 34, 0.2);
+  border-color: #e67e22;
+  color: #f39c12;
+  transform: rotate(90deg) scale(1.08);
+  box-shadow: 0 0 12px rgba(230, 126, 34, 0.35);
 }
 
 .modal-body {
