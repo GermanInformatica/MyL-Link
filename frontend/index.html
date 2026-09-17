@@ -378,8 +378,8 @@
         <div id="subvista-admin-cartas" style="display: none;">
           <div class="section-header-admin">
             <div>
-              <h2>Gestión de <span>Cartas</span></h2>
-              <p>Agrega nuevas cartas al catálogo oficial del juego.</p>
+              <h2>Gesti?n de <span>Cartas</span></h2>
+              <p>Agrega nuevas cartas al cat?logo oficial del juego.</p>
             </div>
             <button class="btn-secondary btn-admin-volver">&larr; Volver al Panel</button>
           </div>
@@ -387,54 +387,54 @@
           <div class="admin-form-container">
             <form id="form-admin-nueva-carta" class="admin-form" novalidate>
               <div class="form-row">
-                <div class="form-group flex-1">
+                <div class="form-group">
                   <label for="admin-carta-nombre">Nombre de la Carta *</label>
                   <input type="text" id="admin-carta-nombre" placeholder="Ej. Lanza Sagrada" required>
                 </div>
 
-                <div class="form-group flex-1">
+                <div class="form-group">
                   <label for="admin-carta-tipo">Tipo de Carta *</label>
                   <select id="admin-carta-tipo" required>
                     <option value="">Selecciona un tipo</option>
                     <option value="Aliado">Aliado</option>
-                    <option value="Talismán">Talismán</option>
-                    <option value="Tótem">Tótem</option>
+                    <option value="Talism?n">Talism?n</option>
+                    <option value="T?tem">T?tem</option>
                     <option value="Arma">Arma</option>
                     <option value="Oro">Oro</option>
                   </select>
                 </div>
               </div>
 
-              <div class="form-row">
-                <div class="form-group flex-1">
+              <div class="form-row-3">
+                <div class="form-group">
                   <label for="admin-carta-raza">Raza (Solo para Aliados)</label>
                   <select id="admin-carta-raza">
                     <option value="">Ninguna / No aplica</option>
                     <option value="Caballero">Caballero</option>
-                    <option value="Dragón">Dragón</option>
+                    <option value="Drag?n">Drag?n</option>
                     <option value="Faerie">Faerie</option>
                   </select>
                 </div>
 
-                <div class="form-group flex-1">
+                <div class="form-group">
                   <label for="admin-carta-coste">Coste en Oros</label>
                   <input type="number" id="admin-carta-coste" placeholder="0 - 8" min="0" max="8">
                 </div>
 
-                <div class="form-group flex-1">
-                  <label for="admin-carta-fuerza">Fuerza de Combate</label>
+                <div class="form-group">
+                  <label for="admin-carta-fuerza">Fuerza Combate</label>
                   <input type="number" id="admin-carta-fuerza" placeholder="0 - 10" min="0" max="10">
                 </div>
               </div>
 
               <div class="form-group">
                 <label for="admin-carta-imagen">Ruta de Imagen (URL o archivo local)</label>
-                <input type="text" id="admin-carta-imagen" placeholder="Ej. imagenes/cartas/espada_sagrada/nueva.png">
+                <input type="text" id="admin-carta-imagen" placeholder="Ej. /img/cartas/027.png o https://...">
               </div>
 
               <div id="admin-carta-alerta" class="auth-alerta" style="display: none;"></div>
 
-              <button type="submit" id="btn-submit-admin-carta" class="btn-primary btn-large btn-block">+ Guardar Carta en el Catálogo</button>
+              <button type="submit" id="btn-submit-admin-carta" class="btn-primary btn-large btn-block">+ Guardar Carta en el Cat?logo</button>
             </form>
           </div>
         </div>
