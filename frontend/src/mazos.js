@@ -482,7 +482,7 @@ async function abrirModalDetalleMazo(idMazo) {
     const oros = res.cartas.filter(c => c.tipo === 'Oro').reduce((acc, c) => acc + Number(c.cantidad), 0);
     const otros = res.cartas.filter(c => !['Aliado', 'Talismán', 'Oro'].includes(c.tipo)).reduce((acc, c) => acc + Number(c.cantidad), 0);
 
-    if (modalResumen? {
+    if (modalResumen) {
       modalResumen.innerHTML = `
         <span>Aliados: <strong>${aliados}</strong></span>
         <span>Talismanes: <strong>${talismanes}</strong></span>
