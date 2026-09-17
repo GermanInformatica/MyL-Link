@@ -16,7 +16,7 @@ function sanitizarHTML(cadena) {
 }
 
 /**
- * Inicializa la sección del constructor de mazos, gesti?n de vistas y galería pública.
+ * Inicializa la sección del constructor de mazos, gestión de vistas y galería pública.
  */
 function inicializarMazos(cartas) {
   todasLasCartasMazos = Array.isArray(cartas) ? cartas : [];
@@ -30,7 +30,7 @@ function inicializarMazos(cartas) {
 }
 
 /**
- * Consulta la API REST para obtener los mazos p?blicos y los renderiza en la galería.
+ * Consulta la API REST para obtener los mazos públicos y los renderiza en la galería.
  */
 async function cargarGaleriaMazos() {
   const contenedor = document.getElementById('grid-mazos-comunidad') || document.getElementById('galeria-mazos-lista') || document.getElementById('contenedor-mazos-galeria');
@@ -47,7 +47,7 @@ async function cargarGaleriaMazos() {
     if (resultado.exito) {
       renderizarGaleriaMazos(resultado.datos);
     } else {
-      contenedor.innerHTML = `<p class="empty-deck-msg">${sanitizarHTML(resultado.mensaje || 'No se pudieron cargar los mazos p?blicos.')}</p>`;
+      contenedor.innerHTML = `<p class="empty-deck-msg">${sanitizarHTML(resultado.mensaje || 'No se pudieron cargar los mazos públicos.')}</p>`;
     }
   } catch (error) {
     console.error('Error al cargar la galería de mazos:', error);
@@ -56,7 +56,7 @@ async function cargarGaleriaMazos() {
 }
 
 /**
- * Renderiza los elementos HTML de cada mazo p?blico en el contenedor de la galería.
+ * Renderiza los elementos HTML de cada mazo público en el contenedor de la galería.
  */
 function renderizarGaleriaMazos(mazos) {
   const contenedor = document.getElementById('grid-mazos-comunidad') || document.getElementById('galeria-mazos-lista') || document.getElementById('contenedor-mazos-galeria');
@@ -65,7 +65,7 @@ function renderizarGaleriaMazos(mazos) {
   contenedor.innerHTML = '';
 
   if (!mazos || mazos.length === 0) {
-    contenedor.innerHTML = '<p class="empty-deck-msg">No hay mazos p?blicos disponibles aún.</p>';
+    contenedor.innerHTML = '<p class="empty-deck-msg">No hay mazos públicos disponibles aún.</p>';
     return;
   }
 
@@ -81,7 +81,7 @@ function renderizarGaleriaMazos(mazos) {
 
     const nombreMazo = sanitizarHTML(mazo.nombre_mazo);
     const nombreUsuario = sanitizarHTML(mazo.nombre_usuario || 'Anónimo');
-    const descripcion = sanitizarHTML(mazo.descripcion || 'Sin descripci?n.');
+    const descripcion = sanitizarHTML(mazo.descripcion || 'Sin descripción.');
 
     card.innerHTML = `
       <div class="mazo-card-header">
@@ -125,7 +125,7 @@ function configurarNavegacionSubvistasMazos() {
     btnCrear.onclick = () => {
       const idUsuario = localStorage.getItem('id_usuario');
       if (!idUsuario) {
-        alert('Debes iniciar sesi?n para crear y guardar tus propios mazos.');
+        alert('Debes iniciar sesión para crear y guardar tus propios mazos.');
         return;
       }
       galeria.style.display = 'none';
@@ -196,7 +196,7 @@ function configurarFiltrosDeckbuilder() {
 }
 
 /**
- * Renderiza el cat?logo de cartas en el panel izquierdo usando DocumentFragment.
+ * Renderiza el catálogo de cartas en el panel izquierdo usando DocumentFragment.
  */
 function renderizarCatalogoDeckbuilder(cartas) {
   const contenedor = document.getElementById('deck-catalogo-lista');
@@ -299,7 +299,7 @@ function actualizarVistaMazo() {
   contenedor.innerHTML = '';
 
   if (mazoActual.length === 0) {
-    contenedor.innerHTML = '<p class="empty-deck-msg">Tu mazo está vacío. Haz clic en las cartas del cat?logo para agregarlas.</p>';
+    contenedor.innerHTML = '<p class="empty-deck-msg">Tu mazo está vacío. Haz clic en las cartas del catálogo para agregarlas.</p>';
   }
 
   let totalCartas = 0;
@@ -312,7 +312,7 @@ function actualizarVistaMazo() {
 
     const tipoNorm = (item.tipo || '').toLowerCase();
     if (tipoNorm === 'aliado') aliados += item.cantidad;
-    else if (tipoNorm === 'talism?n' || tipoNorm === 'talisman') talismanes += item.cantidad;
+    else if (tipoNorm === 'talismán' || tipoNorm === 'talisman') talismanes += item.cantidad;
     else if (tipoNorm === 'oro') oros += item.cantidad;
     else otros += item.cantidad;
 
@@ -396,7 +396,7 @@ function configurarAccionesMazo() {
 
       const idUsuarioSession = localStorage.getItem('id_usuario');
       if (!idUsuarioSession) {
-        alert('Debes iniciar sesi?n para guardar un mazo.');
+        alert('Debes iniciar sesión para guardar un mazo.');
         return;
       }
 
@@ -474,16 +474,16 @@ async function abrirModalDetalleMazo(idMazo) {
   if (res && res.cartas && Array.isArray(res.cartas)) {
     if (modalNombre) modalNombre.textContent = res.nombre_mazo;
     if (modalAutor) modalAutor.textContent = `Por: ${res.nombre_usuario || 'Anónimo'}`;
-    if (modalDesc) modalDesc.textContent = res.descripcion_mazo || res.descripcion || 'Sin descripci?n.';
+    if (modalDesc) modalDesc.textContent = res.descripcion_mazo || res.descripcion || 'Sin descripción.';
 
     // Conteo por tipo de carta
     const aliados = res.cartas.filter(c => c.tipo === 'Aliado').reduce((acc, c) => acc + Number(c.cantidad), 0);
-    const talismanes = res.cartas.filter(c => c.tipo === 'Talism?n').reduce((acc, c) => acc + Number(c.cantidad), 0);
+    const talismanes = res.cartas.filter(c => c.tipo === 'Talismán').reduce((acc, c) => acc + Number(c.cantidad), 0);
     const oros = res.cartas.filter(c => c.tipo === 'Oro').reduce((acc, c) => acc + Number(c.cantidad), 0);
-    const otros = res.cartas.filter(c => !['Aliado', 'Talism?n', 'Oro'].includes(c.tipo)).reduce((acc, c) => acc + Number(c.cantidad), 0);
+    const otros = res.cartas.filter(c => !['Aliado', 'Talismán', 'Oro'].includes(c.tipo)).reduce((acc, c) => acc + Number(c.cantidad), 0);
 
     if (modalResumen? {
-      modalResumen?innerHTML = `
+      modalResumen.innerHTML = `
         <span>Aliados: <strong>${aliados}</strong></span>
         <span>Talismanes: <strong>${talismanes}</strong></span>
         <span>Oros: <strong>${oros}</strong></span>

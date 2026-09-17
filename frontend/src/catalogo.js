@@ -2,7 +2,7 @@
 let cartasCatalogo = [];
 
 /**
- * Inicializa el cat?logo con los datos de las cartas y configura los eventos de filtro y modal.
+ * Inicializa el catálogo con los datos de las cartas y configura los eventos de filtro y modal.
  */
 function inicializarCatalogo(cartas) {
   cartasCatalogo = cartas;
@@ -12,7 +12,7 @@ function inicializarCatalogo(cartas) {
 }
 
 /**
- * Renderiza la grilla de cartas en el contenedor del cat?logo.
+ * Renderiza la grilla de cartas en el contenedor del catálogo.
  */
 function renderizarCartas(lista) {
   const contenedor = document.getElementById('catalogo');
@@ -150,7 +150,7 @@ function abrirModalCarta(carta) {
     tipoRaza.textContent = `${carta.tipo} ${carta.raza ? '• ' + carta.raza : ''}`;
   }
 
-  // Llenar coste y fuerza en el contenedor de estad?sticas
+  // Llenar coste y fuerza en el contenedor de estadísticas
   if (stats) {
     const partesStats = [];
     if (carta.coste !== null && carta.coste !== undefined) {
@@ -162,7 +162,7 @@ function abrirModalCarta(carta) {
     
     stats.innerHTML = partesStats.length > 0 
       ? partesStats.join(' | ') 
-      : '<em>Sin estad?sticas adicionales</em>';
+      : '<em>Sin estadísticas adicionales</em>';
   }
 
   // Activar la clase definida en tu CSS para aplicar display: flex y centrar

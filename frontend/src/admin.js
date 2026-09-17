@@ -1,5 +1,5 @@
 /**
- * Módulo del Panel de Control y Administración (Gesti?n de Usuarios, Cartas y Estad?sticas).
+ * Módulo del Panel de Control y Administración (Gestión de Usuarios, Cartas y Estadísticas).
  */
 
 function sanitizarTextoAdmin(cadena) {
@@ -21,7 +21,7 @@ function inicializarAdmin() {
 }
 
 /**
- * Configura la alternancia entre el men? principal del admin y sus 3 subm?dulos.
+ * Configura la alternancia entre el menú principal del admin y sus 3 submódulos.
  */
 function configurarNavegacionSubvistasAdmin() {
   const menuPrincipal = document.getElementById('subvista-admin-menu');
@@ -46,7 +46,7 @@ function configurarNavegacionSubvistasAdmin() {
     if (menuPrincipal) menuPrincipal.style.display = 'block';
   }
 
-  // 1. Ir a Gesti?n de Usuarios
+  // 1. Ir a Gestión de Usuarios
   if (btnIrUsuarios) {
     btnIrUsuarios.onclick = () => {
       ocultarTodasLasSubvistas();
@@ -55,7 +55,7 @@ function configurarNavegacionSubvistasAdmin() {
     };
   }
 
-  // 2. Ir a Gesti?n de Cartas
+  // 2. Ir a Gestión de Cartas
   if (btnIrCartas) {
     btnIrCartas.onclick = () => {
       ocultarTodasLasSubvistas();
@@ -63,7 +63,7 @@ function configurarNavegacionSubvistasAdmin() {
     };
   }
 
-  // 3. Ir a Estad?sticas del Sistema
+  // 3. Ir a Estadísticas del Sistema
   if (btnIrStats) {
     btnIrStats.onclick = () => {
       ocultarTodasLasSubvistas();
@@ -209,7 +209,7 @@ async function cargarEstadisticasAdmin() {
 }
 
 /**
- * Configura el formulario para añadir una nueva carta al cat?logo.
+ * Configura el formulario para añadir una nueva carta al catálogo.
  */
 function configurarFormularioNuevaCarta() {
   const form = document.getElementById('form-admin-nueva-carta');
@@ -271,7 +271,7 @@ function configurarFormularioNuevaCarta() {
         }
         form.reset();
 
-        // Si tenemos la función de recargar cat?logo global, la llamamos
+        // Si tenemos la función de recargar catálogo global, la llamamos
         if (typeof obtenerCartasAPI === 'function') {
           obtenerCartasAPI().then(nuevasCartas => {
             if (typeof inicializarCatalogo === 'function') inicializarCatalogo(nuevasCartas);
@@ -295,7 +295,7 @@ function configurarFormularioNuevaCarta() {
     } finally {
       if (btnSubmit) {
         btnSubmit.disabled = false;
-        btnSubmit.textContent = '+ Guardar Carta en el Cat?logo';
+        btnSubmit.textContent = '+ Guardar Carta en el Catálogo';
       }
     }
   });

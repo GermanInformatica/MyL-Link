@@ -508,7 +508,7 @@ footer {
   height: 16px;
 }
 
-.resumen?tipos-mazo {
+.resumen-tipos-mazo {
   display: flex;
   justify-content: space-between;
   background-color: #121212;
@@ -962,7 +962,7 @@ footer {
   font-size: 1.2rem;
 }
 
-/* FORMULARIO DE NUEVA CARTA (GESTI?N DE CARTAS) */
+/* FORMULARIO DE NUEVA CARTA (GESTIÓN DE CARTAS) */
 .admin-form-container {
   background: linear-gradient(145deg, #18191d 0%, #121316 100%);
   border: 1px solid rgba(255, 255, 255, 0.08);
