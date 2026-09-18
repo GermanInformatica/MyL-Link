@@ -77,7 +77,11 @@ async function guardarMazoAPI(datosMazo) {
     });
 
     if (!respuesta.ok) {
-      throw new Error(`Error HTTP: ${respuesta.status}`);
+      const errJson = await respuesta.json().catch(() => ({}));
+      return {
+        exito: false,
+        mensaje: errJson.mensaje || `Error HTTP ${respuesta.status} al guardar mazo.`
+      };
     }
 
     return await respuesta.json();
@@ -88,7 +92,7 @@ async function guardarMazoAPI(datosMazo) {
 }
 
 /**
- * Elimina un mazo de la base de datos según su ID (requiere autenticación/id_usuario para validar propiedad).
+ * Elimina un mazo de la base de datos según su ID.
  */
 async function eliminarMazoAPI(idMazo, idUsuario) {
   try {
@@ -99,7 +103,11 @@ async function eliminarMazoAPI(idMazo, idUsuario) {
     });
 
     if (!respuesta.ok) {
-      throw new Error(`Error HTTP: ${respuesta.status}`);
+      const errJson = await respuesta.json().catch(() => ({}));
+      return {
+        exito: false,
+        mensaje: errJson.mensaje || `Error HTTP ${respuesta.status} al eliminar mazo.`
+      };
     }
 
     return await respuesta.json();
@@ -259,7 +267,7 @@ async function obtenerIdsFavoritosAPI(idUsuario) {
 }
 
 /**
- * Alterna el estado de favorito de un mazo (añade si no estaba, quita si ya estaba).
+ * Alterna el estado de favorito de un mazo (ñade si no estaba, quita si ya estaba).
  */
 async function alternarFavoritoAPI(idUsuario, idMazo) {
   try {
@@ -268,6 +276,21 @@ async function alternarFavoritoAPI(idUsuario, idMazo) {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ id_usuario: Number(idUsuario), id_mazo: Number(idMazo) })
     });
+
+    if (!respuesta.ok) {
+      if (respuesta.status === 404) {
+        return {
+          exito: false,
+          mensaje: 'El backend en Render aún no termina de desplegar la última versión. Por favor realiza Manual Deploy en Render.'
+        };
+      }
+      const errJson = await respuesta.json().catch(() => ({}));
+      return {
+        exito: false,
+        mensaje: errJson.mensaje || `Error HTTP ${respuesta.status} al procesar favorito.`
+      };
+    }
+
     return await respuesta.json();
   } catch (error) {
     console.error('Error al alternar favorito:', error);
@@ -283,6 +306,15 @@ async function quitarFavoritoAPI(idUsuario, idMazo) {
     const respuesta = await fetch(`${API_URL}/api/favoritos/${idUsuario}/${idMazo}`, {
       method: 'DELETE'
     });
+
+    if (!respuesta.ok) {
+      const errJson = await respuesta.json().catch(() => ({}));
+      return {
+        exito: false,
+        mensaje: errJson.mensaje || `Error HTTP ${respuesta.status} al quitar favorito.`
+      };
+    }
+
     return await respuesta.json();
   } catch (error) {
     console.error('Error al quitar favorito:', error);
