@@ -128,26 +128,67 @@
     <section id="vista-mazos" class="vista">
       <div class="container">
         
-        <!-- SUB-VISTA 1: GALERÍA DE MAZOS SUBIDOS -->
-        <div id="subvista-galeria-mazos">
-          <div class="section-header">
-            <h2>Mazos de la <span>Comunidad</span></h2>
-            <p>Explora estrategias de otros jugadores o crea la tuya propia.</p>
-            <div style="margin-top: 20px;">
-              <button id="btn-ir-crear-mazo" class="btn-primary btn-large">+ Crea un Mazo</button>
-            </div>
+        <!-- BARRA DE NAVEGACIÓN SUPERIOR DE LA SECCIÓN MAZOS -->
+        <div class="mazos-subnav-container">
+          <div class="mazos-subnav-links">
+            <button id="btn-subnav-galeria" class="btn-subnav active" data-subvista="galeria">
+              <span class="subnav-icon">🌐</span> Galería Comunidad
+            </button>
+            <button id="btn-subnav-mis-mazos" class="btn-subnav" data-subvista="mis-mazos">
+              <span class="subnav-icon">🗂️</span> Mis Mazos
+            </button>
+            <button id="btn-subnav-favoritos" class="btn-subnav" data-subvista="favoritos">
+              <span class="subnav-icon">⭐</span> Mazos Favoritos
+            </button>
           </div>
-
-          <div id="grid-mazos-comunidad" class="grid-cartas">
-            <!-- Renderizado dinámico de mazos -->
+          <div class="mazos-subnav-actions">
+            <button id="btn-subnav-crear" class="btn-primary" data-subvista="constructor">
+              <span>➕</span> Crear un Mazo
+            </button>
           </div>
         </div>
 
-        <!-- SUB-VISTA 2: CONSTRUCTOR / EDITOR DE MAZOS -->
-        <div id="subvista-constructor-mazo" style="display: none;">
+        <!-- SUB-VISTA 1: GALERÍA DE MAZOS DE LA COMUNIDAD -->
+        <div id="subvista-galeria-mazos" class="subvista-mazos">
+          <div class="section-header">
+            <h2>Mazos de la <span>Comunidad</span></h2>
+            <p>Explora estrategias de otros jugadores, márcalos como favoritos o construye el tuyo propio.</p>
+          </div>
+
+          <div id="grid-mazos-comunidad" class="grid-cartas">
+            <!-- Renderizado dinámico de mazos públicos -->
+          </div>
+        </div>
+
+        <!-- SUB-VISTA 2: MIS MAZOS -->
+        <div id="subvista-mis-mazos" class="subvista-mazos" style="display: none;">
+          <div class="section-header">
+            <h2>Mis Mazos <span>Creados</span></h2>
+            <p>Gestiona, visualiza y administra los mazos que has construido.</p>
+          </div>
+
+          <div id="grid-mis-mazos-seccion" class="grid-cartas">
+            <!-- Renderizado dinámico de mis mazos -->
+          </div>
+        </div>
+
+        <!-- SUB-VISTA 3: MAZOS FAVORITOS -->
+        <div id="subvista-mazos-favoritos" class="subvista-mazos" style="display: none;">
+          <div class="section-header">
+            <h2>Mazos <span>Favoritos</span></h2>
+            <p>Tus mazos guardados de la comunidad listos para consultar en cualquier momento.</p>
+          </div>
+
+          <div id="grid-mazos-favoritos-seccion" class="grid-cartas">
+            <!-- Renderizado dinámico de mazos favoritos -->
+          </div>
+        </div>
+
+        <!-- SUB-VISTA 4: CONSTRUCTOR / EDITOR DE MAZOS -->
+        <div id="subvista-constructor-mazo" class="subvista-mazos" style="display: none;">
           <div class="section-header">
             <h2>Constructor de <span>Mazos</span></h2>
-            <p>Diseña y valida tu mazo para formato Espada Sagrada.</p>
+            <p>Diseña y valida tu mazo reglamentario de 50 cartas para formato Espada Sagrada.</p>
             <div style="margin-top: 15px;">
               <button id="btn-volver-galeria" class="btn-secondary">&larr; Volver a Mazos</button>
             </div>
@@ -524,7 +565,7 @@
       <div class="modal-mazo-header">
         <div class="modal-mazo-title-row">
           <h2 id="modal-mazo-nombre">Nombre del Mazo</h2>
-          <button id="btn-modal-toggle-fav" class="btn-fav-star-modal">? Guardar Favorito</button>
+          <button id="btn-modal-toggle-fav" class="btn-fav-star-modal">⭐ Guardar Favorito</button>
         </div>
         <span id="modal-mazo-autor" class="mazo-autor">Por: Autor</span>
         <p id="modal-mazo-descripcion" class="modal-mazo-desc">Descripción del mazo...</p>

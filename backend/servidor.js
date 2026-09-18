@@ -623,26 +623,52 @@ app.get('/api/usuarios/:id/favoritos/ids', async (req, res) => {
 // 5. Alternar favorito (Agregar / Quitar)
 app.post('/api/favoritos', async (req, res) => {
   try {
-    const { id_usuario, id_mazo } = req.body;
-    if (!id_usuario || !id_mazo) {
-      return res.status(400).json({ exito: false, mensaje: 'Usuario y mazo son obligatorios.' });
+    const idUsuario = parseInt(req.body.id_usuario, 10);
+    const idMazo = parseInt(req.body.id_mazo, 10);
+
+    if (isNaN(idUsuario) || isNaN(idMazo)) {
+      return res.status(400).json({ exito: false, mensaje: 'Usuario y mazo deben ser números válidos.' });
+    }
+
+    // Verificar que el usuario exista
+    const [usuarios] = await db.query('SELECT id_usuario FROM usuario WHERE id_usuario = ?', [idUsuario]);
+    if (usuarios.length === 0) {
+      return res.status(404).json({ exito: false, mensaje: 'El usuario especificado no existe.' });
+    }
+
+    // Verificar que el mazo exista
+    const [mazos] = await db.query('SELECT id_mazo, nombre_mazo FROM mazo WHERE id_mazo = ?', [idMazo]);
+    if (mazos.length === 0) {
+      return res.status(404).json({ exito: false, mensaje: 'El mazo especificado no existe.' });
     }
 
     const [existente] = await db.query(
-      'SELECT * FROM FAVORITO WHERE id_usuario = ? AND id_mazo = ?',
-      [id_usuario, id_mazo]
+      'SELECT * FROM favorito WHERE id_usuario = ? AND id_mazo = ?',
+      [idUsuario, idMazo]
     );
 
     if (existente.length > 0) {
-      await db.query('DELETE FROM FAVORITO WHERE id_usuario = ? AND id_mazo = ?', [id_usuario, id_mazo]);
-      return res.json({ exito: true, esFavorito: false, mensaje: 'Mazo quitado de tus favoritos.' });
+      await db.query('DELETE FROM favorito WHERE id_usuario = ? AND id_mazo = ?', [idUsuario, idMazo]);
+      const [[{ totalFavoritos }]] = await db.query('SELECT COUNT(*) AS totalFavoritos FROM favorito WHERE id_mazo = ?', [idMazo]);
+      return res.json({
+        exito: true,
+        esFavorito: false,
+        totalFavoritos: Number(totalFavoritos),
+        mensaje: 'Mazo quitado de tus favoritos.'
+      });
     } else {
-      await db.query('INSERT INTO FAVORITO (id_usuario, id_mazo) VALUES (?, ?)', [id_usuario, id_mazo]);
-      return res.json({ exito: true, esFavorito: true, mensaje: '?Mazo guardado en tus favoritos!' });
+      await db.query('INSERT INTO favorito (id_usuario, id_mazo) VALUES (?, ?)', [idUsuario, idMazo]);
+      const [[{ totalFavoritos }]] = await db.query('SELECT COUNT(*) AS totalFavoritos FROM favorito WHERE id_mazo = ?', [idMazo]);
+      return res.json({
+        exito: true,
+        esFavorito: true,
+        totalFavoritos: Number(totalFavoritos),
+        mensaje: '¡Mazo guardado en tus favoritos!'
+      });
     }
   } catch (error) {
     console.error('Error al alternar favorito:', error);
-    res.status(500).json({ exito: false, mensaje: 'Error al procesar favoritos.' });
+    res.status(500).json({ exito: false, mensaje: 'Error al procesar favoritos: ' + error.message });
   }
 });
 

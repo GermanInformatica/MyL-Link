@@ -1,10 +1,11 @@
-// URL base del backend Node.js / Express
+// Configuración de la URL de la API REST
+// Detectar automáticamente si estamos en desarrollo local o en producción (Netlify / Render)
 const API_URL = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
   ? 'http://localhost:3000'
   : 'https://myl-link-backend.onrender.com';
 
 /**
- * Obtiene el listado completo de cartas desde el backend / MySQL.
+ * Obtiene la lista completa de cartas desde la API REST.
  */
 async function obtenerCartasAPI() {
   try {
@@ -13,24 +14,15 @@ async function obtenerCartasAPI() {
       throw new Error(`Error HTTP: ${respuesta.status}`);
     }
     const res = await respuesta.json();
-
-    // Extraer el arreglo desde la propiedad 'datos' que envía Express
-    if (res && Array.isArray(res.datos)) {
-      return res.datos;
-    } else if (Array.isArray(res)) {
-      return res;
-    }
-
-    console.warn('Estructura inesperada devuelta por la API de cartas:', res);
-    return [];
+    return res.datos || res;
   } catch (error) {
-    console.error('Error al conectar con la API de cartas:', error);
+    console.error('Error al obtener el catálogo de cartas desde la API:', error);
     return [];
   }
 }
 
 /**
- * Obtiene el listado completo de mazos desde el backend.
+ * Obtiene la lista completa de mazos públicos creados por la comunidad.
  */
 async function obtenerMazosAPI() {
   try {
@@ -96,12 +88,14 @@ async function guardarMazoAPI(datosMazo) {
 }
 
 /**
- * Elimina un mazo de la base de datos según su ID.
+ * Elimina un mazo de la base de datos según su ID (requiere autenticación/id_usuario para validar propiedad).
  */
-async function eliminarMazoAPI(idMazo) {
+async function eliminarMazoAPI(idMazo, idUsuario) {
   try {
     const respuesta = await fetch(`${API_URL}/api/mazos/${idMazo}`, {
-      method: 'DELETE'
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id_usuario: idUsuario })
     });
 
     if (!respuesta.ok) {
@@ -221,12 +215,8 @@ async function eliminarUsuarioAdminAPI(idUsuario) {
   }
 }
 
-
-
-
-
 /**
- * Obtiene todos los mazos creados por un usuario espec?fico.
+ * Obtiene todos los mazos creados por un usuario específico.
  */
 async function obtenerMisMazosAPI(idUsuario) {
   try {
@@ -236,23 +226,6 @@ async function obtenerMisMazosAPI(idUsuario) {
   } catch (error) {
     console.error('Error al obtener mis mazos:', error);
     return { exito: false, datos: [] };
-  }
-}
-
-/**
- * Elimina un mazo propio (o por administrador).
- */
-async function eliminarMazoAPI(idMazo, idUsuario) {
-  try {
-    const respuesta = await fetch(`${API_URL}/api/mazos/${idMazo}`, {
-      method: 'DELETE',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ id_usuario: idUsuario })
-    });
-    return await respuesta.json();
-  } catch (error) {
-    console.error('Error al eliminar mazo:', error);
-    return { exito: false, mensaje: 'Error de conexi?n con el servidor.' };
   }
 }
 
@@ -271,7 +244,7 @@ async function obtenerFavoritosUsuarioAPI(idUsuario) {
 }
 
 /**
- * Obtiene la lista r?pida de IDs de mazos favoritos de un usuario.
+ * Obtiene la lista rápida de IDs de mazos favoritos de un usuario.
  */
 async function obtenerIdsFavoritosAPI(idUsuario) {
   try {
@@ -286,19 +259,19 @@ async function obtenerIdsFavoritosAPI(idUsuario) {
 }
 
 /**
- * Alterna el estado de favorito de un mazo (a?ade si no estaba, quita si ya estaba).
+ * Alterna el estado de favorito de un mazo (añade si no estaba, quita si ya estaba).
  */
 async function alternarFavoritoAPI(idUsuario, idMazo) {
   try {
     const respuesta = await fetch(`${API_URL}/api/favoritos`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ id_usuario: idUsuario, id_mazo: idMazo })
+      body: JSON.stringify({ id_usuario: Number(idUsuario), id_mazo: Number(idMazo) })
     });
     return await respuesta.json();
   } catch (error) {
     console.error('Error al alternar favorito:', error);
-    return { exito: false, mensaje: 'Error de conexi?n con el servidor.' };
+    return { exito: false, mensaje: 'Error de conexión con el servidor.' };
   }
 }
 
@@ -313,6 +286,6 @@ async function quitarFavoritoAPI(idUsuario, idMazo) {
     return await respuesta.json();
   } catch (error) {
     console.error('Error al quitar favorito:', error);
-    return { exito: false, mensaje: 'Error de conexi?n con el servidor.' };
+    return { exito: false, mensaje: 'Error de conexión con el servidor.' };
   }
 }

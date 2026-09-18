@@ -1,119 +1,106 @@
 /**
- * Módulo de Autenticación y Gestión de Usuarios (Registro e Inicio de Sesión).
+ * Cierra la sesión del usuario y recarga la aplicación.
  */
-
-/**
- * Muestra un mensaje de alerta (éxito o error) en el formulario de registro.
- */
-function mostrarAlertaRegistro(mensaje, tipo = 'error') {
-  const alerta = document.getElementById('reg-alerta');
-  if (!alerta) return;
-
-  alerta.textContent = mensaje;
-  alerta.className = `auth-alerta auth-alerta-${tipo}`;
-  alerta.style.display = 'block';
-}
-
-/**
- * Oculta la alerta del formulario de registro.
- */
-function ocultarAlertaRegistro() {
-  const alerta = document.getElementById('reg-alerta');
-  if (alerta) {
-    alerta.style.display = 'none';
-    alerta.textContent = '';
+function cerrarSesion() {
+  if (confirm('¿Deseas cerrar tu sesión actual?')) {
+    localStorage.removeItem('id_usuario');
+    localStorage.removeItem('nombre_usuario');
+    localStorage.removeItem('correo_usuario');
+    localStorage.removeItem('rol_usuario');
+    window.location.reload();
   }
 }
 
 /**
- * Muestra un mensaje de alerta en el modal de inicio de sesión.
+ * Inicializa los eventos del módulo de autenticación.
  */
-function mostrarAlertaLogin(mensaje, tipo = 'error') {
-  const alerta = document.getElementById('login-alerta');
-  if (!alerta) return;
-
-  alerta.textContent = mensaje;
-  alerta.className = `auth-alerta auth-alerta-${tipo}`;
-  alerta.style.display = 'block';
+function inicializarAuth() {
+  configurarModalLogin();
+  configurarFormularioRegistro();
+  actualizarEstadoUsuarioUI();
 }
 
 /**
- * Oculta la alerta del modal de inicio de sesión.
- */
-function ocultarAlertaLogin() {
-  const alerta = document.getElementById('login-alerta');
-  if (alerta) {
-    alerta.style.display = 'none';
-    alerta.textContent = '';
-  }
-}
-
-/**
- * Abre la ventana modal de inicio de sesión.
+ * Abre el modal de inicio de sesión.
  */
 function abrirModalLogin() {
   const modal = document.getElementById('modal-login');
-  if (!modal) return;
-
-  ocultarAlertaLogin();
-  const form = document.getElementById('form-login');
-  if (form) form.reset();
-
-  modal.classList.add('active');
-  const inputCorreo = document.getElementById('login-correo');
-  if (inputCorreo) setTimeout(() => inputCorreo.focus(), 100);
+  if (modal) {
+    modal.classList.add('active');
+    modal.setAttribute('aria-hidden', 'false');
+    const inputCorreo = document.getElementById('login-correo');
+    if (inputCorreo) inputCorreo.focus();
+  }
 }
 
 /**
- * Cierra la ventana modal de inicio de sesión.
+ * Cierra el modal de inicio de sesión y limpia el formulario.
  */
 function cerrarModalLogin() {
   const modal = document.getElementById('modal-login');
   if (modal) {
     modal.classList.remove('active');
+    modal.setAttribute('aria-hidden', 'true');
+    const form = document.getElementById('form-login');
+    if (form) form.reset();
+    ocultarAlertaLogin();
   }
 }
 
 /**
- * Inicializa los eventos del módulo de autenticación (Registro y Modal de Login).
+ * Muestra un mensaje de alerta en el modal de login.
  */
-function inicializarAuth() {
-  // 1. Configurar eventos de la ventana modal de Login
-  configurarModalLogin();
-
-  // 2. Configurar el formulario de Registro
-  configurarFormularioRegistro();
-
-  // 3. Revisar el estado de sesión guardado
-  actualizarEstadoUsuarioUI();
+function mostrarAlertaLogin(mensaje, tipo = 'error') {
+  const alerta = document.getElementById('login-alerta');
+  if (alerta) {
+    alerta.textContent = mensaje;
+    alerta.className = `auth-alerta auth-alerta-${tipo}`;
+    alerta.style.display = 'block';
+  }
 }
 
 /**
- * Configura la apertura, cierre y envío del modal de inicio de sesión.
+ * Oculta la alerta del modal de login.
+ */
+function ocultarAlertaLogin() {
+  const alerta = document.getElementById('login-alerta');
+  if (alerta) {
+    alerta.style.display = 'none';
+  }
+}
+
+/**
+ * Muestra un mensaje de alerta en la vista de registro.
+ */
+function mostrarAlertaRegistro(mensaje, tipo = 'error') {
+  const alerta = document.getElementById('registro-alerta');
+  if (alerta) {
+    alerta.textContent = mensaje;
+    alerta.className = `auth-alerta auth-alerta-${tipo}`;
+    alerta.style.display = 'block';
+  }
+}
+
+/**
+ * Oculta la alerta de la vista de registro.
+ */
+function ocultarAlertaRegistro() {
+  const alerta = document.getElementById('registro-alerta');
+  if (alerta) {
+    alerta.style.display = 'none';
+  }
+}
+
+/**
+ * Configura los eventos del modal de inicio de sesión.
  */
 function configurarModalLogin() {
-  // Delegación global para botones de apertura y cierre de login
-  document.addEventListener('click', (evento) => {
-    const btnLogin = evento.target.closest('#btn-abrir-login, .btn-abrir-login, #link-ir-login');
-    if (btnLogin) {
-      evento.preventDefault();
-      abrirModalLogin();
-      return;
-    }
-    const btnCerrar = evento.target.closest('#btn-cerrar-login, .btn-cerrar-login');
-    if (btnCerrar) {
-      evento.preventDefault();
-      cerrarModalLogin();
-      return;
-    }
-  });
-
+  const modal = document.getElementById('modal-login');
   const btnAbrir = document.getElementById('btn-abrir-login');
   const btnCerrar = document.getElementById('btn-cerrar-login');
-  const modal = document.getElementById('modal-login');
-  const formLogin = document.getElementById('form-login');
   const linkIrRegistro = document.getElementById('link-ir-registro');
   const linkIrLogin = document.getElementById('link-ir-login');
+  const formLogin = document.getElementById('form-login');
 
   if (btnAbrir) {
     btnAbrir.addEventListener('click', (e) => {
@@ -126,7 +113,6 @@ function configurarModalLogin() {
     btnCerrar.addEventListener('click', cerrarModalLogin);
   }
 
-  // Cerrar al hacer clic en el fondo oscuro
   if (modal) {
     modal.addEventListener('click', (evento) => {
       if (evento.target === modal) {
@@ -135,24 +121,22 @@ function configurarModalLogin() {
     });
   }
 
-  // Cerrar con tecla Escape
   document.addEventListener('keydown', (evento) => {
     if (evento.key === 'Escape') {
       cerrarModalLogin();
     }
   });
 
-  // Enlace dentro del modal para ir a registrarse
   if (linkIrRegistro) {
     linkIrRegistro.addEventListener('click', (e) => {
       e.preventDefault();
       cerrarModalLogin();
-      const btnRegistroNav = document.querySelector('.nav-btn[data-target="vista-registro"]');
-      if (btnRegistroNav) btnRegistroNav.click();
+      if (typeof cambiarVista === 'function') {
+        cambiarVista('vista-registro');
+      }
     });
   }
 
-  // Enlace dentro de la página de registro para abrir el login
   if (linkIrLogin) {
     linkIrLogin.addEventListener('click', (e) => {
       e.preventDefault();
@@ -160,7 +144,6 @@ function configurarModalLogin() {
     });
   }
 
-  // Envío del formulario de Login
   if (formLogin) {
     formLogin.addEventListener('submit', async (evento) => {
       evento.preventDefault();
@@ -190,7 +173,6 @@ function configurarModalLogin() {
         });
 
         if (respuesta && respuesta.exito) {
-          // Guardar sesión en el navegador
           if (respuesta.usuario) {
             localStorage.setItem('id_usuario', respuesta.usuario.id_usuario);
             localStorage.setItem('nombre_usuario', respuesta.usuario.nombre_usuario);
@@ -200,10 +182,16 @@ function configurarModalLogin() {
 
           mostrarAlertaLogin(`¡Hola, ${respuesta.usuario.nombre_usuario}! Entrando...`, 'exito');
 
-          setTimeout(() => {
+          setTimeout(async () => {
             cerrarModalLogin();
             actualizarEstadoUsuarioUI();
-          }, 1000);
+            if (typeof actualizarSetFavoritosUsuario === 'function') {
+              await actualizarSetFavoritosUsuario();
+            }
+            if (typeof mostrarSubvistaMazos === 'function' && typeof subvistaMazosActiva !== 'undefined') {
+              mostrarSubvistaMazos(subvistaMazosActiva);
+            }
+          }, 800);
 
         } else {
           mostrarAlertaLogin(respuesta.mensaje || 'Credenciales incorrectas.');
@@ -284,11 +272,15 @@ function configurarFormularioRegistro() {
         mostrarAlertaRegistro('¡Cuenta creada con éxito! Redirigiendo...', 'exito');
         formRegistro.reset();
 
-        setTimeout(() => {
+        setTimeout(async () => {
           actualizarEstadoUsuarioUI();
-          const btnInicio = document.querySelector('.nav-link[data-target="vista-inicio"]');
-          if (btnInicio) btnInicio.click();
-        }, 1500);
+          if (typeof cambiarVista === 'function') {
+            cambiarVista('vista-inicio');
+          }
+          if (typeof actualizarSetFavoritosUsuario === 'function') {
+            await actualizarSetFavoritosUsuario();
+          }
+        }, 1200);
 
       } else {
         mostrarAlertaRegistro(respuesta.mensaje || 'Error al registrar el usuario.');
@@ -314,7 +306,6 @@ function actualizarEstadoUsuarioUI() {
   const contenedorBotones = document.querySelector('.auth-buttons');
   const navItemAdmin = document.getElementById('nav-item-admin');
 
-  // Mostrar u ocultar pestaña de Administración según el rol
   if (navItemAdmin) {
     navItemAdmin.style.display = (rolUsuario === 'ADMIN') ? 'inline-block' : 'none';
   }
@@ -323,21 +314,13 @@ function actualizarEstadoUsuarioUI() {
 
   if (nombreUsuario) {
     contenedorBotones.innerHTML = `
-      <span class="usuario-conectado">Hola, <strong>${nombreUsuario}</strong></span>
+      <span class="usuario-conectado">👤 Hola, <strong>${nombreUsuario}</strong></span>
       <button id="btn-cerrar-sesion" class="btn-secondary" style="padding: 6px 14px; font-size: 0.85rem;">Cerrar Sesión</button>
     `;
 
     const btnCerrar = document.getElementById('btn-cerrar-sesion');
     if (btnCerrar) {
-      btnCerrar.onclick = () => {
-        if (confirm('¿Deseas cerrar tu sesión actual?')) {
-          localStorage.removeItem('id_usuario');
-          localStorage.removeItem('nombre_usuario');
-          localStorage.removeItem('correo_usuario');
-          localStorage.removeItem('rol_usuario');
-          window.location.reload();
-        }
-      };
+      btnCerrar.onclick = cerrarSesion;
     }
   } else {
     contenedorBotones.innerHTML = `
@@ -345,7 +328,6 @@ function actualizarEstadoUsuarioUI() {
       <button class="btn-primary nav-btn" data-target="vista-registro">Registrarse</button>
     `;
 
-    // Reasignar eventos al volver a renderizar los botones
     const nuevoBtnLogin = document.getElementById('btn-abrir-login');
     if (nuevoBtnLogin) {
       nuevoBtnLogin.addEventListener('click', (e) => {

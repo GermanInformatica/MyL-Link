@@ -1445,3 +1445,260 @@ footer {
   font-size: 0.82rem;
   font-weight: 600;
 }
+
+/* ==========================================
+   SUB-NAVEGACI?N DE LA SECCI?N MAZOS
+   ========================================== */
+.mazos-subnav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
+  background: #181818;
+  border: 1px solid #2d2d2d;
+  border-radius: 12px;
+  padding: 10px 16px;
+  margin-bottom: 28px;
+}
+
+.mazos-subnav-links {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.btn-subnav {
+  background: transparent;
+  color: #a0aec0;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  transition: all 0.2s ease;
+}
+
+.btn-subnav:hover {
+  color: #e67e22;
+  background: rgba(230, 126, 34, 0.1);
+}
+
+.btn-subnav.active {
+  background: linear-gradient(135deg, #e67e22, #d35400);
+  color: #ffffff;
+  border-color: #e67e22;
+  box-shadow: 0 4px 12px rgba(230, 126, 34, 0.35);
+}
+
+.mazos-subnav-actions {
+  display: flex;
+  align-items: center;
+}
+
+/* ==========================================
+   TARJETAS Y BOTONES DE FAVORITOS EN MAZOS
+   ========================================== */
+.mazo-card-header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.mazo-card-titulo {
+  font-size: 1.15rem;
+  color: #f7fafc;
+  margin: 0;
+  font-weight: 700;
+  word-break: break-word;
+}
+
+.btn-fav-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 50%;
+  width: 34px;
+  height: 34px;
+  font-size: 1.1rem;
+  color: #a0aec0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.btn-fav-card:hover {
+  transform: scale(1.15);
+  background: rgba(241, 196, 15, 0.15);
+  border-color: #f1c40f;
+  color: #f1c40f;
+}
+
+.btn-fav-card.fav-activo {
+  background: rgba(241, 196, 15, 0.22);
+  border-color: #f1c40f;
+  color: #f1c40f;
+  filter: drop-shadow(0 0 5px rgba(241, 196, 15, 0.6));
+}
+
+.mazo-card-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 8px;
+  font-size: 0.85rem;
+}
+
+.badge-cartas-total {
+  font-size: 0.78rem;
+  color: #cbd5e0;
+  background: rgba(255, 255, 255, 0.06);
+  padding: 3px 8px;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.badge-tu-mazo {
+  color: #2ecc71;
+  font-size: 0.78rem;
+  font-weight: 700;
+  margin-left: 4px;
+}
+
+.mazo-card-desc {
+  color: #a0aec0;
+  font-size: 0.9rem;
+  line-height: 1.45;
+  margin: 12px 0;
+  flex-grow: 1;
+}
+
+.mazo-card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin-top: 15px;
+  padding-top: 12px;
+  border-top: 1px solid #2a2a2a;
+}
+
+.mazo-fecha {
+  color: #718096;
+  font-size: 0.82rem;
+}
+
+.btn-danger-small {
+  background: #c0392b;
+  color: #ffffff;
+  border: none;
+  padding: 7px 14px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.15s ease;
+}
+
+.btn-danger-small:hover {
+  background: #e74c3c;
+  transform: translateY(-1px);
+}
+
+/* ==========================================
+   BANNERS DE AUTENTICACI?N Y VAC?O
+   ========================================== */
+.deck-auth-banner,
+.deck-empty-banner {
+  background: #181818;
+  border: 1px solid #2d2d2d;
+  border-radius: 14px;
+  padding: 40px 24px;
+  text-align: center;
+  max-width: 580px;
+  margin: 30px auto;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+.deck-auth-icon,
+.deck-empty-icon {
+  font-size: 3rem;
+  margin-bottom: 12px;
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.4));
+}
+
+.deck-auth-banner h3,
+.deck-empty-banner h3 {
+  font-size: 1.35rem;
+  color: #ffffff;
+  margin-bottom: 8px;
+}
+
+.deck-auth-banner p,
+.deck-empty-banner p {
+  color: #a0aec0;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+/* ==========================================
+   PESTA?AS DE PERFIL
+   ========================================== */
+.perfil-tabs-container {
+  margin: 25px 0 20px;
+  border-bottom: 1px solid #2d2d2d;
+  padding-bottom: 10px;
+}
+
+.perfil-tabs {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.perfil-tabs .tab-btn {
+  background: transparent;
+  color: #a0aec0;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  padding: 9px 18px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.perfil-tabs .tab-btn:hover {
+  color: #e67e22;
+  background: rgba(230, 126, 34, 0.1);
+}
+
+.perfil-tabs .tab-btn.active {
+  background: #e67e22;
+  color: #ffffff;
+  border-color: #e67e22;
+  box-shadow: 0 4px 12px rgba(230, 126, 34, 0.3);
+}
+
+.empty-deck-perfil {
+  background: #181818;
+  border: 1px dashed #3a3a3a;
+  border-radius: 12px;
+  padding: 35px 20px;
+  text-align: center;
+  grid-column: 1 / -1;
+  color: #a0aec0;
+}
+
+.empty-deck-perfil p {
+  margin-bottom: 15px;
+  font-size: 1rem;
+}
