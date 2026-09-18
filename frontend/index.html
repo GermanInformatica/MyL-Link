@@ -522,7 +522,10 @@
     <div class="modal-contenido modal-mazo-contenido">
       <button class="cerrar-modal" id="btn-cerrar-modal-mazo" aria-label="Cerrar modal">&times;</button>
       <div class="modal-mazo-header">
-        <h2 id="modal-mazo-nombre">Nombre del Mazo</h2>
+        <div class="modal-mazo-title-row">
+          <h2 id="modal-mazo-nombre">Nombre del Mazo</h2>
+          <button id="btn-modal-toggle-fav" class="btn-fav-star-modal">? Guardar Favorito</button>
+        </div>
         <span id="modal-mazo-autor" class="mazo-autor">Por: Autor</span>
         <p id="modal-mazo-descripcion" class="modal-mazo-desc">Descripción del mazo...</p>
         <div id="modal-mazo-resumen" class="resumen-tipos-mazo" style="margin-top: 15px;"></div>
@@ -574,6 +577,7 @@
   <script defer src="src/navegacion.js"></script>
   <script defer src="src/catalogo.js"></script>
   <script defer src="src/mazos.js"></script>
+  <script defer src="src/perfil.js"></script>
   <script defer src="src/principal.js"></script>
 
 </body>

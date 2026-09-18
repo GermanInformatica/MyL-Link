@@ -504,6 +504,160 @@ app.post('/api/admin/cartas', async (req, res) => {
   }
 });
 
+
+// ==========================================
+// ENDPOINTS DE PERFIL, MIS MAZOS Y FAVORITOS
+// ==========================================
+
+// 1. Obtener todos los mazos creados por un usuario
+app.get('/api/usuarios/:id/mazos', async (req, res) => {
+  try {
+    const idUsuario = req.params.id;
+    const [mazos] = await db.query(`
+      SELECT 
+        m.id_mazo, 
+        m.nombre_mazo, 
+        m.descripcion_mazo,
+        m.descripcion_mazo AS descripcion, 
+        m.es_publico, 
+        m.fecha_creacion_mazo,
+        m.fecha_creacion_mazo AS fecha_creacion, 
+        u.nombre_usuario,
+        (SELECT COALESCE(SUM(cantidad), 0) FROM MAZO_CARTA WHERE id_mazo = m.id_mazo) AS total_cartas
+      FROM MAZO m
+      LEFT JOIN USUARIO u ON m.id_usuario = u.id_usuario
+      WHERE m.id_usuario = ?
+      ORDER BY m.fecha_creacion_mazo DESC
+    `, [idUsuario]);
+
+    res.json({
+      exito: true,
+      total: mazos.length,
+      datos: mazos
+    });
+  } catch (error) {
+    console.error('Error al consultar mazos del usuario:', error);
+    res.status(500).json({ exito: false, mensaje: 'Error al consultar tus mazos creados.' });
+  }
+});
+
+// 2. Eliminar un mazo (por su autor o por el administrador)
+app.delete('/api/mazos/:id', async (req, res) => {
+  try {
+    const idMazo = req.params.id;
+    const { id_usuario } = req.body || {};
+
+    if (id_usuario) {
+      const [usuario] = await db.query('SELECT rol FROM USUARIO WHERE id_usuario = ?', [id_usuario]);
+      const [mazo] = await db.query('SELECT id_usuario FROM MAZO WHERE id_mazo = ?', [idMazo]);
+
+      if (mazo.length === 0) {
+        return res.status(404).json({ exito: false, mensaje: 'Mazo no encontrado.' });
+      }
+
+      const esAdmin = usuario.length > 0 && usuario[0].rol === 'ADMIN';
+      const esDuenio = mazo[0].id_usuario === Number(id_usuario);
+
+      if (!esAdmin && !esDuenio) {
+        return res.status(403).json({ exito: false, mensaje: 'No tienes permiso para eliminar este mazo.' });
+      }
+    }
+
+    await db.query('DELETE FROM MAZO WHERE id_mazo = ?', [idMazo]);
+    res.json({ exito: true, mensaje: 'Mazo eliminado exitosamente.' });
+  } catch (error) {
+    console.error('Error al eliminar mazo:', error);
+    res.status(500).json({ exito: false, mensaje: 'Error al eliminar el mazo.' });
+  }
+});
+
+// 3. Obtener mazos favoritos de un usuario
+app.get('/api/usuarios/:id/favoritos', async (req, res) => {
+  try {
+    const idUsuario = req.params.id;
+    const [favoritos] = await db.query(`
+      SELECT 
+        m.id_mazo, 
+        m.nombre_mazo, 
+        m.descripcion_mazo,
+        m.descripcion_mazo AS descripcion, 
+        m.es_publico, 
+        m.fecha_creacion_mazo,
+        m.fecha_creacion_mazo AS fecha_creacion, 
+        u.nombre_usuario,
+        f.fecha_guardado,
+        (SELECT COALESCE(SUM(cantidad), 0) FROM MAZO_CARTA WHERE id_mazo = m.id_mazo) AS total_cartas
+      FROM FAVORITO f
+      JOIN MAZO m ON f.id_mazo = m.id_mazo
+      LEFT JOIN USUARIO u ON m.id_usuario = u.id_usuario
+      WHERE f.id_usuario = ?
+      ORDER BY f.fecha_guardado DESC
+    `, [idUsuario]);
+
+    res.json({
+      exito: true,
+      total: favoritos.length,
+      datos: favoritos
+    });
+  } catch (error) {
+    console.error('Error al consultar favoritos del usuario:', error);
+    res.status(500).json({ exito: false, mensaje: 'Error al consultar tus mazos favoritos.' });
+  }
+});
+
+// 4. Obtener solo los IDs de favoritos de un usuario
+app.get('/api/usuarios/:id/favoritos/ids', async (req, res) => {
+  try {
+    const idUsuario = req.params.id;
+    const [filas] = await db.query('SELECT id_mazo FROM FAVORITO WHERE id_usuario = ?', [idUsuario]);
+    res.json({
+      exito: true,
+      datos: filas.map(f => f.id_mazo)
+    });
+  } catch (error) {
+    console.error('Error al consultar IDs de favoritos:', error);
+    res.status(500).json({ exito: false, datos: [] });
+  }
+});
+
+// 5. Alternar favorito (Agregar / Quitar)
+app.post('/api/favoritos', async (req, res) => {
+  try {
+    const { id_usuario, id_mazo } = req.body;
+    if (!id_usuario || !id_mazo) {
+      return res.status(400).json({ exito: false, mensaje: 'Usuario y mazo son obligatorios.' });
+    }
+
+    const [existente] = await db.query(
+      'SELECT * FROM FAVORITO WHERE id_usuario = ? AND id_mazo = ?',
+      [id_usuario, id_mazo]
+    );
+
+    if (existente.length > 0) {
+      await db.query('DELETE FROM FAVORITO WHERE id_usuario = ? AND id_mazo = ?', [id_usuario, id_mazo]);
+      return res.json({ exito: true, esFavorito: false, mensaje: 'Mazo quitado de tus favoritos.' });
+    } else {
+      await db.query('INSERT INTO FAVORITO (id_usuario, id_mazo) VALUES (?, ?)', [id_usuario, id_mazo]);
+      return res.json({ exito: true, esFavorito: true, mensaje: '?Mazo guardado en tus favoritos!' });
+    }
+  } catch (error) {
+    console.error('Error al alternar favorito:', error);
+    res.status(500).json({ exito: false, mensaje: 'Error al procesar favoritos.' });
+  }
+});
+
+// 6. Quitar favorito directamente
+app.delete('/api/favoritos/:id_usuario/:id_mazo', async (req, res) => {
+  try {
+    const { id_usuario, id_mazo } = req.params;
+    await db.query('DELETE FROM FAVORITO WHERE id_usuario = ? AND id_mazo = ?', [id_usuario, id_mazo]);
+    res.json({ exito: true, mensaje: 'Mazo quitado de tus favoritos.' });
+  } catch (error) {
+    console.error('Error al quitar favorito:', error);
+    res.status(500).json({ exito: false, mensaje: 'Error al quitar el mazo de favoritos.' });
+  }
+});
+
 app.listen(PORT, () => {
   console.log(`Servidor escuchando en http://localhost:${PORT}`);
 });

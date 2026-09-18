@@ -13,6 +13,9 @@ document.addEventListener('DOMContentLoaded', async () => {
   if (typeof inicializarAdmin === 'function') {
     inicializarAdmin();
   }
+  if (typeof inicializarPerfil === 'function') {
+    inicializarPerfil();
+  }
 
   // 2. Obtener las cartas desde el backend de forma asíncrona
   try {

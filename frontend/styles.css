@@ -1159,3 +1159,289 @@ footer {
   padding: 6px 14px;
   font-size: 0.85rem;
 }
+
+
+/* ========================================================
+   ESTILOS DE MI PERFIL, MIS MAZOS Y FAVORITOS
+   ======================================================== */
+
+.perfil-usuario-card {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  background: linear-gradient(135deg, #1f1f27 0%, #15151c 100%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 28px 32px;
+  margin-bottom: 30px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+  flex-wrap: wrap;
+}
+
+.perfil-avatar {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #e67e22 0%, #d35400 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #fff;
+  box-shadow: 0 4px 15px rgba(230, 126, 34, 0.4);
+  flex-shrink: 0;
+}
+
+.perfil-datos {
+  flex: 1;
+  min-width: 220px;
+}
+
+.perfil-nombre-rol {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 6px;
+}
+
+.perfil-nombre-rol h2 {
+  font-size: 1.6rem;
+  color: #fff;
+  margin: 0;
+}
+
+.perfil-correo {
+  color: #a0aec0;
+  font-size: 0.95rem;
+  margin: 0;
+}
+
+.perfil-resumen-stats {
+  display: flex;
+  gap: 20px;
+}
+
+.perfil-stat-item {
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 12px;
+  padding: 12px 20px;
+  text-align: center;
+  min-width: 100px;
+}
+
+.perfil-stat-num {
+  display: block;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #e67e22;
+}
+
+.perfil-stat-lbl {
+  font-size: 0.78rem;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* PESTA?AS DEL PERFIL */
+.perfil-nav-tabs {
+  display: flex;
+  gap: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 15px;
+  margin-bottom: 25px;
+  overflow-x: auto;
+}
+
+.tab-perfil-btn {
+  background: rgba(255, 255, 255, 0.04);
+  color: #a0aec0;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  padding: 10px 22px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+}
+
+.tab-perfil-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.tab-perfil-btn.active {
+  background: rgba(230, 126, 34, 0.15);
+  color: #e67e22;
+  border-color: #e67e22;
+  box-shadow: 0 4px 12px rgba(230, 126, 34, 0.25);
+}
+
+.perfil-subseccion-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.perfil-subseccion-header h3 {
+  font-size: 1.3rem;
+  color: #fff;
+  margin-bottom: 4px;
+}
+
+.perfil-subseccion-header p {
+  color: #888;
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+/* TARJETAS VAC?AS EN PERFIL */
+.empty-deck-perfil {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px dashed rgba(255, 255, 255, 0.15);
+  border-radius: 14px;
+  padding: 45px 25px;
+  text-align: center;
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+.empty-deck-perfil p {
+  color: #a0aec0;
+  font-size: 1.05rem;
+  margin: 0;
+}
+
+/* BANNER DE INVITACI?N (GUEST) */
+.perfil-guest-card {
+  background: linear-gradient(135deg, #1a1a22 0%, #121217 100%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 50px 30px;
+  text-align: center;
+  max-width: 580px;
+  margin: 40px auto;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+}
+
+.perfil-guest-icon {
+  font-size: 3.5rem;
+  margin-bottom: 15px;
+}
+
+.perfil-guest-card h3 {
+  font-size: 1.6rem;
+  color: #fff;
+  margin-bottom: 12px;
+}
+
+.perfil-guest-card p {
+  color: #a0aec0;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin-bottom: 25px;
+}
+
+.perfil-guest-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+/* BOT?N DE FAVORITO EN TARJETA Y MODAL */
+.mazo-card-titulo-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.btn-fav-star {
+  background: transparent;
+  border: none;
+  font-size: 1.3rem;
+  cursor: pointer;
+  padding: 2px 6px;
+  border-radius: 6px;
+  transition: transform 0.2s ease, filter 0.2s ease;
+  line-height: 1;
+}
+
+.btn-fav-star:hover {
+  transform: scale(1.25);
+}
+
+.btn-fav-star.active {
+  filter: drop-shadow(0 0 6px rgba(241, 196, 15, 0.8));
+}
+
+.modal-mazo-title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.btn-fav-star-modal {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #cbd5e0;
+  border-radius: 8px;
+  padding: 6px 14px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-fav-star-modal:hover {
+  background: rgba(241, 196, 15, 0.15);
+  border-color: #f1c40f;
+  color: #f1c40f;
+}
+
+.btn-fav-star-modal.active {
+  background: rgba(241, 196, 15, 0.2);
+  border-color: #f1c40f;
+  color: #f1c40f;
+}
+
+.badge-publico {
+  font-size: 0.75rem;
+  padding: 3px 8px;
+  border-radius: 6px;
+  font-weight: 600;
+}
+
+.badge-publico-si {
+  background: rgba(46, 204, 113, 0.15);
+  color: #2ecc71;
+  border: 1px solid rgba(46, 204, 113, 0.3);
+}
+
+.badge-publico-no {
+  background: rgba(149, 165, 166, 0.15);
+  color: #bdc3c7;
+  border: 1px solid rgba(149, 165, 166, 0.3);
+}
+
+.mazo-fav-tag {
+  color: #f1c40f;
+  font-size: 0.82rem;
+  font-weight: 600;
+}

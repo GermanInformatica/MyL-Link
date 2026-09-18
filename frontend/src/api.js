@@ -223,3 +223,96 @@ async function eliminarUsuarioAdminAPI(idUsuario) {
 
 
 
+
+
+/**
+ * Obtiene todos los mazos creados por un usuario espec?fico.
+ */
+async function obtenerMisMazosAPI(idUsuario) {
+  try {
+    const respuesta = await fetch(`${API_URL}/api/usuarios/${idUsuario}/mazos`);
+    if (!respuesta.ok) throw new Error(`Error HTTP: ${respuesta.status}`);
+    return await respuesta.json();
+  } catch (error) {
+    console.error('Error al obtener mis mazos:', error);
+    return { exito: false, datos: [] };
+  }
+}
+
+/**
+ * Elimina un mazo propio (o por administrador).
+ */
+async function eliminarMazoAPI(idMazo, idUsuario) {
+  try {
+    const respuesta = await fetch(`${API_URL}/api/mazos/${idMazo}`, {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id_usuario: idUsuario })
+    });
+    return await respuesta.json();
+  } catch (error) {
+    console.error('Error al eliminar mazo:', error);
+    return { exito: false, mensaje: 'Error de conexi?n con el servidor.' };
+  }
+}
+
+/**
+ * Obtiene los mazos guardados como favoritos por un usuario.
+ */
+async function obtenerFavoritosUsuarioAPI(idUsuario) {
+  try {
+    const respuesta = await fetch(`${API_URL}/api/usuarios/${idUsuario}/favoritos`);
+    if (!respuesta.ok) throw new Error(`Error HTTP: ${respuesta.status}`);
+    return await respuesta.json();
+  } catch (error) {
+    console.error('Error al obtener favoritos:', error);
+    return { exito: false, datos: [] };
+  }
+}
+
+/**
+ * Obtiene la lista r?pida de IDs de mazos favoritos de un usuario.
+ */
+async function obtenerIdsFavoritosAPI(idUsuario) {
+  try {
+    const respuesta = await fetch(`${API_URL}/api/usuarios/${idUsuario}/favoritos/ids`);
+    if (!respuesta.ok) throw new Error(`Error HTTP: ${respuesta.status}`);
+    const res = await respuesta.json();
+    return Array.isArray(res.datos) ? res.datos : [];
+  } catch (error) {
+    console.error('Error al obtener IDs de favoritos:', error);
+    return [];
+  }
+}
+
+/**
+ * Alterna el estado de favorito de un mazo (a?ade si no estaba, quita si ya estaba).
+ */
+async function alternarFavoritoAPI(idUsuario, idMazo) {
+  try {
+    const respuesta = await fetch(`${API_URL}/api/favoritos`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id_usuario: idUsuario, id_mazo: idMazo })
+    });
+    return await respuesta.json();
+  } catch (error) {
+    console.error('Error al alternar favorito:', error);
+    return { exito: false, mensaje: 'Error de conexi?n con el servidor.' };
+  }
+}
+
+/**
+ * Quita un mazo de la lista de favoritos de un usuario.
+ */
+async function quitarFavoritoAPI(idUsuario, idMazo) {
+  try {
+    const respuesta = await fetch(`${API_URL}/api/favoritos/${idUsuario}/${idMazo}`, {
+      method: 'DELETE'
+    });
+    return await respuesta.json();
+  } catch (error) {
+    console.error('Error al quitar favorito:', error);
+    return { exito: false, mensaje: 'Error de conexi?n con el servidor.' };
+  }
+}
