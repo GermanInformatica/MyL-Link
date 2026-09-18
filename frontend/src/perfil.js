@@ -191,7 +191,7 @@ async function cargarMisMazosPerfil(idUsuario) {
   if (mazos.length === 0) {
     contenedor.innerHTML = `
       <div class="empty-deck-perfil">
-        <p>A?n no has creado ning?n mazo.</p>
+        <p>Aún no has creado ningún mazo.</p>
         <button class="btn-primary" onclick="document.getElementById('btn-perfil-crear-mazo').click()">+ Construir mi Primer Mazo</button>
       </div>
     `;
@@ -205,7 +205,7 @@ async function cargarMisMazosPerfil(idUsuario) {
     const card = document.createElement('div');
     card.classList.add('mazo-card');
 
-    const fecha = mazo.fecha_creacion_mazo 
+    const fecha = mazo.fecha_creacion_mazo
       ? new Date(mazo.fecha_creacion_mazo).toLocaleDateString('es-ES', { day: '2-digit', month: 'short', year: 'numeric' })
       : 'Reciente';
 
