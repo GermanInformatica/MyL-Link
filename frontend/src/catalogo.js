@@ -27,7 +27,7 @@ function renderizarCartas(lista) {
 
   lista.forEach(carta => {
     const card = document.createElement('div');
-    card.classList.add('carta-card');
+    card.classList.add('tarjeta-carta');
     
     // Construir la línea de Coste y Fuerza si existen
     const partesStats = [];
@@ -111,29 +111,9 @@ function configurarFiltrosCatalogo() {
 }
 
 /**
- * Lógica del Modal para ver el detalle ampliado de una carta.
- */
-function configurarModal() {
-  const modal = document.getElementById('modal-carta');
-  const btnCerrar = document.getElementById('btn-cerrar-modal');
-
-  if (!modal || !btnCerrar) return;
-
-  btnCerrar.addEventListener('click', () => {
-    modal.style.display = 'none';
-  });
-
-  window.addEventListener('click', (e) => {
-    if (e.target === modal) {
-      modal.style.display = 'none';
-    }
-  });
-}
-
-/**
  * Abre el modal con los detalles completos de la carta.
  */
-function abrirModalCarta(carta) {
+async function abrirModalCarta(carta) {
   const modal = document.getElementById('modal-carta');
   if (!modal) return;
 
@@ -142,6 +122,8 @@ function abrirModalCarta(carta) {
   const nombre = document.getElementById('modal-nombre');
   const tipoRaza = document.getElementById('modal-tipo-raza');
   const stats = document.getElementById('modal-stats');
+  const elVisitas = document.getElementById('modal-carta-visitas');
+  const elEnMazos = document.getElementById('modal-carta-en-mazos');
 
   if (img) img.src = `${API_URL}${carta.imagen_url}`;
   if (nombre) nombre.textContent = carta.nombre_carta;
@@ -154,19 +136,56 @@ function abrirModalCarta(carta) {
   if (stats) {
     const partesStats = [];
     if (carta.coste !== null && carta.coste !== undefined) {
-      partesStats.push(`<strong>Coste:</strong> ${carta.coste}`);
+      partesStats.push(
+        '<div class="stat-atributo-item stat-coste">' +
+          '<span class="stat-atributo-icono">🪙</span>' +
+          '<div class="stat-atributo-info">' +
+            '<span class="stat-atributo-label">Coste</span>' +
+            '<span class="stat-atributo-valor">' + carta.coste + '</span>' +
+          '</div>' +
+        '</div>'
+      );
     }
     if (carta.fuerza !== null && carta.fuerza !== undefined) {
-      partesStats.push(`<strong>Fuerza:</strong> ${carta.fuerza}`);
+      partesStats.push(
+        '<div class="stat-atributo-item stat-fuerza">' +
+          '<span class="stat-atributo-icono">⚔️</span>' +
+          '<div class="stat-atributo-info">' +
+            '<span class="stat-atributo-label">Fuerza</span>' +
+            '<span class="stat-atributo-valor">' + carta.fuerza + '</span>' +
+          '</div>' +
+        '</div>'
+      );
     }
-    
-    stats.innerHTML = partesStats.length > 0 
-      ? partesStats.join(' | ') 
-      : '<em>Sin estadísticas adicionales</em>';
+    if (partesStats.length !== 0) {
+      stats.style.display = "grid";
+      stats.innerHTML = partesStats.join("");
+    } else {
+      stats.style.display = "block";
+      stats.innerHTML = '<span class="sin-atributos-texto">Sin atributos de combate</span>';
+    }
   }
+  if (elVisitas) elVisitas.textContent = '...';
+  if (elEnMazos) elEnMazos.textContent = '...';
 
-  // Activar la clase definida en tu CSS para aplicar display: flex y centrar
   modal.classList.add('active');
+
+  if (carta.id_carta) {
+    try {
+      const resMetricas = await registrarVistaCartaAPI(carta.id_carta);
+      if (resMetricas && resMetricas.exito) {
+        if (elVisitas) elVisitas.textContent = Number(resMetricas.visitas).toLocaleString();
+        if (elEnMazos) elEnMazos.textContent = Number(resMetricas.total_en_mazos).toLocaleString();
+      } else {
+        if (elVisitas) elVisitas.textContent = '-';
+        if (elEnMazos) elEnMazos.textContent = '-';
+      }
+    } catch (err) {
+      console.error('Error al actualizar metricas de carta en modal:', err);
+      if (elVisitas) elVisitas.textContent = '-';
+      if (elEnMazos) elEnMazos.textContent = '-';
+    }
+  }
 }
 
 /**

@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>MyL Link - Plataforma de Mitos y Leyendas</title>
   <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
 
   <!-- BARRA DE NAVEGACIÓN -->
@@ -15,30 +17,42 @@
         <h2>MyL <span>Link</span></h2>
       </a>
     </div>
-    <nav>
-      <ul>
-        <li><a href="#" class="nav-link active" data-target="vista-inicio">Inicio</a></li>
-        <li><a href="#" class="nav-link" data-target="vista-cartas">Cartas</a></li>
-        <li><a href="#" class="nav-link" data-target="vista-mazos">Mazos</a></li>
-        <li><a href="#" class="nav-link" data-target="vista-perfil">Mi Perfil</a></li>
-      </ul>
-    </nav>
-    <div class="auth-buttons">
-      <button class="btn-secondary">Iniciar Sesión</button>
-      <button class="btn-primary">Registrarse</button>
+
+    <!-- BOTÓN MENÚ HAMBURGUESA MÓVIL -->
+    <button id="btn-menu-hamburguesa" class="btn-menu-hamburguesa" aria-label="Abrir menú" aria-expanded="false">
+      <span class="linea-hamburguesa"></span>
+      <span class="linea-hamburguesa"></span>
+      <span class="linea-hamburguesa"></span>
+    </button>
+
+    <div class="nav-menu-contenedor" id="nav-menu-contenedor">
+      <nav>
+        <ul>
+          <li><a href="#" class="nav-link active" data-target="vista-inicio">Inicio</a></li>
+          <li><a href="#" class="nav-link" data-target="vista-cartas">Cartas</a></li>
+          <li><a href="#" class="nav-link" data-target="vista-mazos">Mazos</a></li>
+          <li><a href="#" class="nav-link" data-target="vista-perfil">Mi Perfil</a></li>
+          <li id="nav-item-admin" style="display: none;"><a href="#" class="nav-link" data-target="vista-admin">Panel de
+              Control</a></li>
+        </ul>
+      </nav>
+      <div class="botones-auth">
+        <button id="btn-abrir-login" class="btn-secondary">Iniciar Sesión</button>
+        <button class="btn-primary nav-btn" data-target="vista-registro">Registrarse</button>
+      </div>
     </div>
   </header>
 
   <!-- CONTENEDOR DINÁMICO DE VISTAS -->
-  <main id="app-content">
+  <main id="contenido-app">
 
     <!-- 1. VISTA INICIO -->
     <section id="vista-inicio" class="vista active">
-      <div class="hero">
-        <div class="hero-content">
-          <h1>Explora el Universo de <span>Mitos y Leyendas</span></h1>
+      <div class="seccion-bienvenida">
+        <div class="contenido-bienvenida">
+          <h1>Explora el Universo de <br><span>Mitos y Leyendas</span></h1>
           <p>Consulta el catálogo completo de Espada Sagrada, gestiona tus mazos y analiza tus estrategias.</p>
-          <div class="hero-buttons">
+          <div class="botones-bienvenida">
             <button class="btn-primary btn-large nav-btn" data-target="vista-cartas">Ver Catálogo</button>
             <button class="btn-secondary btn-large nav-btn" data-target="vista-mazos">Explorar Mazos</button>
           </div>
@@ -59,7 +73,7 @@
           <div class="filtro-grupo">
             <input type="text" id="filtro-nombre" placeholder="Buscar por nombre..." autocomplete="off">
           </div>
-          
+
           <div class="filtro-grupo">
             <select id="filtro-tipo">
               <option value="">Todos los Tipos</option>
@@ -118,65 +132,502 @@
         </div>
 
         <div id="catalogo" class="grid-cartas">
-          <!-- Las cartas de MySQL se renderizan aquí -->
+          <!-- Renderizado dinámico de cartas -->
         </div>
       </div>
     </section>
 
-    <!-- 3. VISTA CONSTRUCTOR DE MAZOS -->
+    <!-- 3. VISTA MAZOS -->
     <section id="vista-mazos" class="vista">
       <div class="container">
-        <div class="section-header">
-          <h2>Constructor de <span>Mazos</span></h2>
-          <p>Diseña y valida tu mazo para formato Espada Sagrada.</p>
+
+        <!-- BARRA DE NAVEGACIÓN SUPERIOR DE LA SECCIÓN MAZOS -->
+        <div class="mazos-subnav-container">
+          <div class="mazos-subnav-links">
+            <button id="btn-subnav-galeria" class="btn-subnav active" data-subvista="galeria">
+              <span class="subnav-icon">🌐</span> Galería Comunidad
+            </button>
+            <button id="btn-subnav-mis-mazos" class="btn-subnav" data-subvista="mis-mazos">
+              <span class="subnav-icon">🗂️</span> Mis Mazos
+            </button>
+            <button id="btn-subnav-favoritos" class="btn-subnav" data-subvista="favoritos">
+              <span class="subnav-icon">⭐</span> Mazos Favoritos
+            </button>
+          </div>
+          <div class="mazos-subnav-actions">
+            <button id="btn-subnav-crear" class="btn-primary" data-subvista="constructor">
+              <span>➕</span> Crear un Mazo
+            </button>
+          </div>
         </div>
 
-        <div class="deckbuilder-layout">
-          <!-- PANEL IZQUIERDO: SELECCIÓN DE CARTAS -->
-          <div class="deckbuilder-catalogo">
-            <h3>Buscar Cartas</h3>
-            <div class="filtros-container filtros-compactos">
-              <input type="text" id="deck-filtro-nombre" placeholder="Nombre..." autocomplete="off">
-              <select id="deck-filtro-tipo">
-                <option value="">Tipo (Todos)</option>
-                <option value="Aliado">Aliado</option>
-                <option value="Talismán">Talismán</option>
-                <option value="Tótem">Tótem</option>
-                <option value="Arma">Arma</option>
-                <option value="Oro">Oro</option>
-              </select>
-            </div>
-            <div id="deck-catalogo-lista" class="grid-cartas-deck">
-              <!-- Cartas para añadir -->
+        <!-- SUB-VISTA 1: GALERÍA DE MAZOS DE LA COMUNIDAD -->
+        <div id="subvista-galeria-mazos" class="subvista-mazos">
+          <div class="section-header">
+            <h2>Mazos de la <span>Comunidad</span></h2>
+            <p>Explora estrategias de otros jugadores, márcalos como favoritos o construye el tuyo propio.</p>
+          </div>
+
+          <div id="grid-mazos-comunidad" class="grid-cartas">
+            <!-- Renderizado dinámico de mazos públicos -->
+          </div>
+        </div>
+
+        <!-- SUB-VISTA 2: MIS MAZOS -->
+        <div id="subvista-mis-mazos" class="subvista-mazos" style="display: none;">
+          <div class="section-header">
+            <h2>Mis Mazos <span>Creados</span></h2>
+            <p>Gestiona, visualiza y administra los mazos que has construido.</p>
+          </div>
+
+          <div id="grid-mis-mazos-seccion" class="grid-cartas">
+            <!-- Renderizado dinámico de mis mazos -->
+          </div>
+        </div>
+
+        <!-- SUB-VISTA 3: MAZOS FAVORITOS -->
+        <div id="subvista-mazos-favoritos" class="subvista-mazos" style="display: none;">
+          <div class="section-header">
+            <h2>Mazos <span>Favoritos</span></h2>
+            <p>Tus mazos guardados de la comunidad listos para consultar en cualquier momento.</p>
+          </div>
+
+          <div id="grid-mazos-favoritos-seccion" class="grid-cartas">
+            <!-- Renderizado dinámico de mazos favoritos -->
+          </div>
+        </div>
+
+        <!-- SUB-VISTA 4: CONSTRUCTOR / EDITOR DE MAZOS -->
+        <div id="subvista-constructor-mazo" class="subvista-mazos" style="display: none;">
+          <div class="section-header">
+            <h2>Constructor de <span>Mazos</span></h2>
+            <p>Diseña y valida tu mazo reglamentario de 50 cartas para formato Espada Sagrada.</p>
+            <div style="margin-top: 15px;">
+              <button id="btn-volver-galeria" class="btn-secondary">&larr; Volver a Mazos</button>
             </div>
           </div>
 
-          <!-- PANEL DERECHO: MAZO ACTUAL -->
-          <div class="deckbuilder-mazo">
-            <div class="mazo-header">
-              <input type="text" id="nombre-mazo" value="Mi Nuevo Mazo" class="input-nombre-mazo">
-              <div class="contador-mazo">
-                <span id="total-cartas-mazo">0</span> / 50 Cartas
+          <div class="constructor-layout">
+            <!-- PANEL IZQUIERDO: SELECCIÓN DE CARTAS Y FILTROS -->
+            <div class="constructor-catalogo">
+              <h3>Buscar Cartas</h3>
+
+              <div id="panel-filtros-constructor" class="filtros-container filtros-compactos">
+                <div class="filtro-grupo">
+                  <input type="text" id="filtro-nombre-constructor" placeholder="Nombre..." autocomplete="off">
+                </div>
+                <div class="filtro-grupo">
+                  <select id="filtro-tipo-constructor">
+                    <option value="">Tipo (Todos)</option>
+                    <option value="Aliado">Aliado</option>
+                    <option value="Talismán">Talismán</option>
+                    <option value="Tótem">Tótem</option>
+                    <option value="Arma">Arma</option>
+                    <option value="Oro">Oro</option>
+                  </select>
+                </div>
+                <div class="filtro-grupo">
+                  <select id="filtro-raza-constructor">
+                    <option value="">Raza (Todas)</option>
+                    <option value="Caballero">Caballero</option>
+                    <option value="Dragón">Dragón</option>
+                    <option value="Faerie">Faerie</option>
+                  </select>
+                </div>
+                <div class="filtro-grupo">
+                  <select id="filtro-coste-constructor">
+                    <option value="">Coste (Todos)</option>
+                    <option value="0">0</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                  </select>
+                </div>
+                <div class="filtro-grupo">
+                  <select id="filtro-fuerza-constructor">
+                    <option value="">Fuerza (Todas)</option>
+                    <option value="0">0</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                  </select>
+                </div>
+                <div class="filtro-grupo">
+                  <button id="btn-limpiar-filtros-constructor" class="btn-secondary"
+                    style="padding: 8px;">Limpiar</button>
+                </div>
+              </div>
+
+              <div id="catalogo-lista-constructor" class="grid-cartas-constructor">
+                <!-- Cartas disponibles para añadir -->
               </div>
             </div>
 
-            <div class="resumen-tipos-mazo">
-              <span>Aliados: <strong id="cant-aliados">0</strong></span>
-              <span>Talismanes: <strong id="cant-talismanes">0</strong></span>
-              <span>Oros: <strong id="cant-oros">0</strong></span>
-              <span>Otros: <strong id="cant-otros">0</strong></span>
-            </div>
+            <!-- PANEL DERECHO: MAZO ACTUAL -->
+            <div class="constructor-mazo-panel">
+              <div class="mazo-header">
+                <input type="text" id="nombre-mazo" value="Mi Nuevo Mazo" class="input-nombre-mazo">
+                <div class="contador-mazo">
+                  <span id="total-cartas-mazo">0</span> / 50 Cartas
+                </div>
+              </div>
 
-            <div id="lista-cartas-mazo" class="mazo-lista-items">
-              <p class="empty-deck-msg">Tu mazo está vacío. Haz clic en las cartas del catálogo para agregarlas.</p>
-            </div>
+              <div class="mazo-descripcion-container">
+                <textarea id="descripcion-mazo" placeholder="Describe la estrategia o notas de tu mazo..." rows="2"
+                  class="textarea-descripcion-mazo"></textarea>
+              </div>
 
-            <div class="mazo-acciones">
-              <button id="btn-vaciar-mazo" class="btn-secondary">Vaciar Mazo</button>
-              <button id="btn-guardar-mazo" class="btn-primary">Guardar Mazo</button>
+              <div class="mazo-opciones">
+                <label class="checkbox-container">
+                  <input type="checkbox" id="chk-es-publico" checked>
+                  <span>Mazo público para la comunidad</span>
+                </label>
+              </div>
+
+              <div class="resumen-tipos-mazo">
+                <span>Aliados: <strong id="cant-aliados">0</strong></span>
+                <span>Talismanes: <strong id="cant-talismanes">0</strong></span>
+                <span>Oros: <strong id="cant-oros">0</strong></span>
+                <span>Otros: <strong id="cant-otros">0</strong></span>
+              </div>
+
+              <div id="lista-cartas-mazo" class="mazo-lista-items">
+                <p class="mensaje-mazo-vacio">Tu mazo está vacío. Haz clic en las cartas del catálogo para agregarlas.
+                </p>
+              </div>
+
+              <div class="mazo-acciones">
+                <button id="btn-vaciar-mazo" class="btn-secondary">Vaciar Mazo</button>
+                <button id="btn-guardar-mazo" class="btn-primary">Guardar Mazo</button>
+              </div>
             </div>
           </div>
         </div>
+
+      </div>
+    </section>
+
+    <!-- 4. VISTA PERFIL -->
+    <section id="vista-perfil" class="vista">
+      <div class="container">
+        <div class="section-header">
+          <h2>Mi <span>Perfil</span></h2>
+          <p>Gestiona los datos de tu cuenta y tus mazos guardados.</p>
+        </div>
+        <div id="perfil-contenido">
+          <!-- Contenido dinámico del perfil -->
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. VISTA REGISTRO DE USUARIO -->
+    <section id="vista-registro" class="vista">
+      <div class="container-auth">
+        <div class="tarjeta-auth">
+          <div class="auth-header">
+            <h2>Crear <span>Cuenta</span></h2>
+            <p>Únete a la comunidad de Mitos y Leyendas para armar y compartir tus mazos.</p>
+          </div>
+
+          <form id="form-registro" class="auth-form" novalidate>
+            <div class="form-group">
+              <label for="reg-nombre">Nombre de Usuario</label>
+              <input type="text" id="reg-nombre" placeholder="Ej. Skorpius" required autocomplete="username">
+            </div>
+
+            <div class="form-group">
+              <label for="reg-correo">Correo Electrónico</label>
+              <input type="email" id="reg-correo" placeholder="ejemplo@correo.com" required autocomplete="email">
+            </div>
+
+            <div class="form-group">
+              <label for="reg-password">Contraseña</label>
+              <input type="password" id="reg-password" placeholder="Mínimo 6 caracteres" required
+                autocomplete="new-password">
+            </div>
+
+            <div class="form-group">
+              <label for="reg-password-confirm">Confirmar Contraseña</label>
+              <input type="password" id="reg-password-confirm" placeholder="Repite tu contraseña" required
+                autocomplete="new-password">
+            </div>
+
+            <div id="reg-alerta" class="auth-alerta" style="display: none;"></div>
+
+            <button type="submit" id="btn-submit-registro" class="btn-primary btn-large btn-block">Registrarme</button>
+          </form>
+
+          <div class="auth-footer">
+            <p>¿Ya tienes una cuenta? <a href="#" id="link-ir-login">Inicia sesión</a></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. VISTA PANEL DE CONTROL (ADMINISTRADOR) -->
+    <section id="vista-admin" class="vista">
+      <div class="container">
+
+        <!-- SUB-VISTA 1: MENÚ PRINCIPAL DEL ADMINISTRADOR -->
+        <div id="subvista-admin-menu">
+          <div class="section-header">
+            <h2>Panel de Control - <span>Administración</span></h2>
+            <p>Gestión centralizada del sistema, cuentas de usuario y catálogo de cartas.</p>
+          </div>
+
+          <div class="admin-grid-menu">
+            <!-- Tarjeta 1: Gestión de Usuarios -->
+            <div class="tarjeta-menu-admin">
+              <div class="icono-tarjeta-admin">👥</div>
+              <h3>Gestión de Usuarios</h3>
+              <p>Supervisa las cuentas registradas, roles de acceso y actividad de los usuarios.</p>
+              <button id="btn-admin-ir-usuarios" class="btn-primary btn-large btn-block">Gestionar Usuarios
+                &rarr;</button>
+            </div>
+
+            <!-- Tarjeta 2: Gestión de Cartas -->
+            <div class="tarjeta-menu-admin">
+              <div class="icono-tarjeta-admin">🃏</div>
+              <h3>Gestión de Cartas</h3>
+              <p>Incorpora nuevas cartas al catálogo de Espada Sagrada con sus razas, costes y fuerzas.</p>
+              <button id="btn-admin-ir-cartas" class="btn-primary btn-large btn-block">Gestionar Cartas &rarr;</button>
+            </div>
+
+            <!-- Tarjeta 3: Estadísticas -->
+            <div class="tarjeta-menu-admin">
+              <div class="icono-tarjeta-admin">📊</div>
+              <h3>Estadísticas del Sistema</h3>
+              <p>Consulta métricas de uso, cantidad de mazos construidos y cartas más utilizadas.</p>
+              <button id="btn-admin-ir-stats" class="btn-primary btn-large btn-block">Ver Estadísticas &rarr;</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- SUB-VISTA 2: GESTIÓN DE USUARIOS -->
+        <div id="subvista-admin-usuarios" style="display: none;">
+          <div class="section-header-admin">
+            <div>
+              <h2>Gestión de <span>Usuarios</span></h2>
+              <p>Listado de cuentas registradas en la base de datos MySQL.</p>
+            </div>
+            <button class="btn-secondary btn-admin-volver">&larr; Volver al Panel</button>
+          </div>
+
+          <div class="admin-tabla-container">
+            <table id="tabla-admin-usuarios" class="admin-tabla">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Nombre de Usuario</th>
+                  <th>Correo Electrónico</th>
+                  <th>Rol</th>
+                  <th>Mazos Creados</th>
+                  <th>Fecha de Registro</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody id="tbody-admin-usuarios">
+                <tr>
+                  <td colspan="7" style="text-align: center; color: #888;">Cargando usuarios...</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- SUB-VISTA 3: GESTIÓN DE CARTAS -->
+        <div id="subvista-admin-cartas" style="display: none;">
+          <div class="section-header-admin">
+            <div>
+              <h2>Gestión de <span>Cartas</span></h2>
+              <p>Agrega nuevas cartas al catálogo oficial del juego.</p>
+            </div>
+            <button class="btn-secondary btn-admin-volver">&larr; Volver al Panel</button>
+          </div>
+
+          <div class="admin-form-container">
+            <form id="form-admin-nueva-carta" class="admin-form" novalidate>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="admin-carta-nombre">Nombre de la Carta *</label>
+                  <input type="text" id="admin-carta-nombre" placeholder="Ej. Lanza Sagrada" required>
+                </div>
+
+                <div class="form-group">
+                  <label for="admin-carta-tipo">Tipo de Carta *</label>
+                  <select id="admin-carta-tipo" required>
+                    <option value="">Selecciona un tipo</option>
+                    <option value="Aliado">Aliado</option>
+                    <option value="Talismán">Talismán</option>
+                    <option value="Tótem">Tótem</option>
+                    <option value="Arma">Arma</option>
+                    <option value="Oro">Oro</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-row-3">
+                <div class="form-group">
+                  <label for="admin-carta-raza">Raza (Solo para Aliados)</label>
+                  <select id="admin-carta-raza">
+                    <option value="">Ninguna / No aplica</option>
+                    <option value="Caballero">Caballero</option>
+                    <option value="Dragón">Dragón</option>
+                    <option value="Faerie">Faerie</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label for="admin-carta-coste">Coste en Oros</label>
+                  <input type="number" id="admin-carta-coste" placeholder="0 - 8" min="0" max="8">
+                </div>
+
+                <div class="form-group">
+                  <label for="admin-carta-fuerza">Fuerza Combate</label>
+                  <input type="number" id="admin-carta-fuerza" placeholder="0 - 10" min="0" max="10">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label>Imagen de la Carta</label>
+
+                <!-- Selector de Archivo Local -->
+                <div class="admin-upload-zone" id="admin-drop-zone">
+                  <div class="contenido-zona-subida">
+                    <span class="upload-icon">🖼️</span>
+                    <p class="upload-text"><strong>Haz clic aquí</strong> para seleccionar una imagen desde tu PC</p>
+                    <small class="upload-hint">Formatos: PNG, JPG, JPEG, WEBP (Máx. 5MB)</small>
+                    <input type="file" id="admin-carta-archivo" accept="image/png, image/jpeg, image/jpg, image/webp"
+                      class="upload-input-file">
+                  </div>
+                </div>
+
+                <!-- Previsualización de Imagen -->
+                <div id="admin-carta-preview-wrapper" class="admin-preview-container" style="display: none;">
+                  <div class="admin-preview-box">
+                    <img id="admin-carta-preview-img" src="" alt="Vista previa de la carta">
+                    <button type="button" id="btn-quitar-preview-img" class="btn-quitar-preview"
+                      title="Quitar imagen seleccionada">&times;</button>
+                  </div>
+                  <span class="preview-filename" id="admin-preview-filename">Imagen seleccionada</span>
+                </div>
+
+                <!-- Campo Alternativo Opcional de URL -->
+                <div style="margin-top: 12px;">
+                  <label for="admin-carta-url-externa"
+                    style="font-size: 0.84rem; color: #a0aec0; margin-bottom: 4px; display: block;">O escribe una URL
+                    web directa (Opcional):</label>
+                  <input type="text" id="admin-carta-url-externa"
+                    placeholder="Ej. https://i.imgur.com/... o /img/cartas/001.png">
+                </div>
+              </div>
+
+              <div id="admin-carta-alerta" class="auth-alerta" style="display: none;"></div>
+
+              <button type="submit" id="btn-submit-admin-carta" class="btn-primary btn-large btn-block">+ Guardar Carta
+                en el Catálogo</button>
+              <button type="button" id="btn-cancelar-edicion-carta" class="btn-secondary btn-large btn-block"
+                style="display: none; margin-top: 10px;">✕ Cancelar Edición</button>
+            </form>
+          </div>
+
+          <!-- TABLA DE CARTAS EN EL CATÁLOGO -->
+          <div class="section-header-admin" style="margin-top: 40px; margin-bottom: 15px;">
+            <div>
+              <h2>Listado de <span>Cartas</span></h2>
+              <p>Haz clic en el nombre de cualquier carta para abrir su vista detallada en grande.</p>
+            </div>
+            <div style="display: flex; gap: 10px; align-items: center;">
+              <input type="text" id="admin-buscar-cartas" placeholder="🔍 Buscar carta..."
+                style="padding: 8px 14px; font-size: 0.9rem; background: #222; border: 1px solid #444; border-radius: 6px; color: #fff; width: 220px;">
+            </div>
+          </div>
+
+          <div class="admin-tabla-container admin-tabla-scrollable">
+            <table id="tabla-admin-cartas" class="admin-tabla admin-tabla-compacta">
+              <thead>
+                <tr>
+                  <th style="width: 60px;">ID</th>
+                  <th>Nombre de la Carta</th>
+                  <th>Tipo</th>
+                  <th>Raza</th>
+                  <th>Coste</th>
+                  <th>Fuerza</th>
+                  <th style="width: 170px;">Acciones</th>
+                </tr>
+              </thead>
+              <tbody id="tbody-admin-cartas">
+                <tr>
+                  <td colspan="7" style="text-align: center; color: #888;">Cargando cartas...</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- SUB-VISTA 4: ESTADÍSTICAS DEL SISTEMA -->
+        <div id="subvista-admin-stats" style="display: none;">
+          <div class="section-header-admin">
+            <div>
+              <h2>Estadísticas del <span>Sistema</span></h2>
+              <p>Métricas y actividad general de la plataforma MyL Link.</p>
+            </div>
+            <button class="btn-secondary btn-admin-volver">&larr; Volver al Panel</button>
+          </div>
+
+          <div class="admin-stats-kpis">
+            <div class="tarjeta-kpi-admin">
+              <span class="stat-kpi-num" id="stat-total-usuarios">0</span>
+              <span class="stat-kpi-label">👥 Usuarios Registrados</span>
+            </div>
+            <div class="tarjeta-kpi-admin">
+              <span class="stat-kpi-num" id="stat-total-mazos">0</span>
+              <span class="stat-kpi-label">🗂️ Mazos Construidos</span>
+            </div>
+            <div class="tarjeta-kpi-admin">
+              <span class="stat-kpi-num" id="stat-total-publicos">0</span>
+              <span class="stat-kpi-label">🌐 Mazos Públicos</span>
+            </div>
+            <div class="tarjeta-kpi-admin">
+              <span class="stat-kpi-num" id="stat-total-cartas">0</span>
+              <span class="stat-kpi-label">🃏 Cartas en Catálogo</span>
+            </div>
+          </div>
+
+          <div class="admin-top-cartas-section">
+            <h3>🏆 Top 5 Cartas Más Populares en Mazos</h3>
+            <div class="admin-tabla-container" style="margin-top: 15px;">
+              <table class="admin-tabla">
+                <thead>
+                  <tr>
+                    <th>Carta</th>
+                    <th>Tipo</th>
+                    <th>Raza</th>
+                    <th>Veces Incluida en Mazos</th>
+                  </tr>
+                </thead>
+                <tbody id="tbody-admin-top-cartas">
+                  <tr>
+                    <td colspan="4" style="text-align: center; color: #888;">Cargando Estadísticas...</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
       </div>
     </section>
 
@@ -185,12 +636,16 @@
   <!-- PIE DE PÁGINA -->
   <footer>
     <p>&copy; 2026 MyL Link - Plataforma de Mitos y Leyendas. Todos los derechos reservados.</p>
+    <p class="footer-disclaimer">MyL Link es un proyecto académico de titulación sin fines de lucro. Mitos y Leyendas,
+      sus logotipos, diseños y reglas son propiedad exclusiva de sus respectivos creadores y titulares comerciales (Klu!
+      Trendtoys / Casa Mitos y Leyendas). El uso de imágenes e información se realiza a título de ilustración e
+      investigación, amparado en el Art. 71 B de la Ley N° 17.336 de Propiedad Intelectual de Chile.</p>
   </footer>
 
   <!-- MODAL DE DETALLE DE CARTA -->
-  <div id="modal-carta" class="modal">
+  <div id="modal-carta" class="modal" role="dialog" aria-modal="true" aria-hidden="true">
     <div class="modal-contenido">
-      <span class="cerrar-modal" id="btn-cerrar-modal">&times;</span>
+      <button class="cerrar-modal" id="btn-cerrar-modal" aria-label="Cerrar modal">&times;</button>
       <div class="modal-body">
         <div class="modal-imagen">
           <img id="modal-img" src="" alt="Imagen de Carta">
@@ -199,17 +654,195 @@
           <h2 id="modal-nombre"></h2>
           <p class="modal-tipo" id="modal-tipo-raza"></p>
           <div class="modal-stats" id="modal-stats"></div>
+
+          <!-- MÉTRICAS DE POPULARIDAD -->
+          <div class="modal-metricas-carta">
+            <div class="metrica-item">
+              <span class="metrica-icono">👁️</span>
+              <div class="metrica-info">
+                <span class="metrica-valor" id="modal-carta-visitas">-</span>
+                <span class="metrica-label">Visualizaciones</span>
+              </div>
+            </div>
+            <div class="metrica-item">
+              <span class="metrica-icono">🎴</span>
+              <div class="metrica-info">
+                <span class="metrica-valor" id="modal-carta-en-mazos">-</span>
+                <span class="metrica-label">Copias en Mazos</span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- MODULOS  -->
-  <script src="src/api.js"></script>
-  <script src="src/navegacion.js"></script>
-  <script src="src/catalogo.js"></script>
-  <script src="src/mazos.js"></script>
-  <script src="src/principal.js"></script>
+  <!-- MODAL DE DETALLE DE MAZO (VISOR DE CARTAS) -->
+  <div id="modal-detalle-mazo" class="modal" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal-contenido modal-mazo-contenido">
+      <button class="cerrar-modal" id="btn-cerrar-modal-mazo" aria-label="Cerrar modal">&times;</button>
+      <div class="modal-mazo-header">
+        <div class="modal-mazo-title-row">
+          <h2 id="modal-mazo-nombre">Nombre del Mazo</h2>
+          <button id="btn-modal-toggle-fav" class="btn-fav-star-modal">⭐ Guardar Favorito</button>
+        </div>
+        <div class="modal-mazo-meta-row">
+          <span id="modal-mazo-autor" class="mazo-autor">Por: Autor</span>
+          <div id="modal-mazo-rating-badge" class="badge-rating-modal">
+            <span class="rating-estrella-icono">⭐</span>
+            <span id="modal-mazo-rating-promedio" class="rating-promedio-num">-</span>
+            <span id="modal-mazo-rating-total" class="rating-total-opiniones">(0 opiniones)</span>
+          </div>
+        </div>
+        <p id="modal-mazo-descripcion" class="modal-mazo-desc">Descripción del mazo...</p>
+        <div id="modal-mazo-resumen" class="resumen-tipos-mazo" style="margin-top: 15px;"></div>
+      </div>
+      <div class="modal-mazo-body">
+        <h3 style="color: #e67e22; margin-bottom: 12px; font-size: 1.1rem;">Cartas en este Mazo (50)</h3>
+        <div id="modal-mazo-grid-cartas" class="grid-cartas-mazo-detalle">
+          <!-- Renderizado dinámico de cartas del mazo -->
+        </div>
+
+        <!-- SECCION DE VALORACIONES Y COMENTARIOS -->
+        <div class="seccion-valoraciones-mazo">
+          <div class="valoraciones-header">
+            <h3>💬 Reseñas y Opiniones de la Comunidad</h3>
+            <span class="valoraciones-subtitulo">Comparte tu analisis estrategico o sugerencias para este mazo.</span>
+          </div>
+
+          <!-- FORMULARIO DE VALORACION -->
+          <div id="contenedor-form-valoracion" class="contenedor-form-valoracion">
+            <form id="form-valoracion-mazo" class="form-valoracion" novalidate>
+              <div class="rating-selector-group">
+                <span class="rating-label">Tu Calificación:</span>
+                <div class="rating-estrellas-selector" id="rating-estrellas-selector">
+                  <button type="button" class="estrella-btn" data-valor="1" title="1 estrella">★</button>
+                  <button type="button" class="estrella-btn" data-valor="2" title="2 estrellas">★</button>
+                  <button type="button" class="estrella-btn" data-valor="3" title="3 estrellas">★</button>
+                  <button type="button" class="estrella-btn" data-valor="4" title="4 estrellas">★</button>
+                  <button type="button" class="estrella-btn" data-valor="5" title="5 estrellas">★</button>
+                </div>
+                <span id="rating-texto-seleccion" class="rating-texto-feedback">Selecciona estrellas</span>
+              </div>
+
+              <div class="form-group" style="margin-top: 10px;">
+                <textarea id="valoracion-comentario" class="textarea-comentario" rows="3"
+                  placeholder="Escribe tu opinion o analisis de la estrategia de este mazo... (Opcional)"></textarea>
+              </div>
+
+              <div id="alerta-valoracion-mazo" class="auth-alerta" style="display: none; margin-bottom: 10px;"></div>
+
+              <div class="form-valoracion-footer">
+                <button type="submit" id="btn-submit-valoracion" class="btn-primary btn-large"
+                  style="padding: 8px 18px; font-size: 0.95rem;">⭐ Publicar Opinión</button>
+              </div>
+            </form>
+          </div>
+
+          <!-- BANNER INVITADO -->
+          <div id="banner-valoracion-invitado" class="banner-valoracion-invitado" style="display: none;">
+            <p>🔒 <a href="#" id="link-login-desde-valoracion">Inicia sesión</a> para calificar este mazo y compartir tu
+              opinión con la comunidad.</p>
+          </div>
+
+          <!-- LISTA DE COMENTARIOS -->
+          <div id="lista-comentarios-mazo" class="lista-comentarios-mazo">
+            <p class="sin-comentarios-mensaje">Aún no hay reseñas para este mazo. ¡Sé el primero en opinar!</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- MODAL DE EDICIÓN DE PERFIL DE USUARIO -->
+  <div id="modal-editar-perfil" class="modal" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal-contenido modal-auth-contenido">
+      <button class="cerrar-modal" id="btn-cerrar-editar-perfil" aria-label="Cerrar modal">&times;</button>
+      <div class="auth-header" style="margin-bottom: 20px;">
+        <h2>Editar <span>Mis Datos</span></h2>
+        <p>Actualiza tu nombre de usuario y/o tu contraseña.</p>
+      </div>
+
+      <form id="form-editar-perfil" class="auth-form" novalidate>
+        <div class="form-group">
+          <label for="edit-perfil-nombre">Nombre de Usuario *</label>
+          <input type="text" id="edit-perfil-nombre" required placeholder="Tu nombre de usuario">
+        </div>
+
+        <div class="form-group">
+          <label for="edit-perfil-correo">Correo Electrónico <small style="color: #888;">(No
+              modificable)</small></label>
+          <input type="email" id="edit-perfil-correo" readonly disabled style="opacity: 0.6; cursor: not-allowed;">
+        </div>
+
+        <div class="form-group">
+          <label for="edit-perfil-password">Nueva Contraseña <small style="color: #888;">(Opcional)</small></label>
+          <input type="password" id="edit-perfil-password" placeholder="Mínimo 6 caracteres (o déjalo en blanco)"
+            autocomplete="new-password">
+        </div>
+
+        <div class="form-group">
+          <label for="edit-perfil-password-confirm">Confirmar Nueva Contraseña</label>
+          <input type="password" id="edit-perfil-password-confirm" placeholder="Repite la nueva contraseña"
+            autocomplete="new-password">
+        </div>
+
+        <div id="alerta-editar-perfil" class="auth-alerta" style="display: none;"></div>
+
+        <div style="display: flex; gap: 10px; margin-top: 10px;">
+          <button type="button" id="btn-cancelar-modal-perfil" class="btn-secondary btn-large"
+            style="flex: 1;">Cancelar</button>
+          <button type="submit" id="btn-submit-editar-perfil" class="btn-primary btn-large" style="flex: 1.5;">💾
+            Guardar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL DE INICIO DE SESIÓN -->
+  <div id="modal-login" class="modal" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal-contenido modal-auth-contenido">
+      <button class="cerrar-modal" id="btn-cerrar-login" aria-label="Cerrar modal">&times;</button>
+      <div class="auth-header" style="margin-bottom: 20px;">
+        <h2>Iniciar <span>Sesión</span></h2>
+        <p>Ingresa a tu cuenta para gestionar tus mazos.</p>
+      </div>
+
+      <form id="form-login" class="auth-form" novalidate>
+        <div class="form-group">
+          <label for="login-correo">Correo Electrónico</label>
+          <input type="email" id="login-correo" placeholder="ejemplo@correo.com" required autocomplete="email">
+        </div>
+
+        <div class="form-group">
+          <label for="login-password">Contraseña</label>
+          <input type="password" id="login-password" placeholder="Tu contraseña" required
+            autocomplete="current-password">
+        </div>
+
+        <div id="login-alerta" class="auth-alerta" style="display: none;"></div>
+
+        <button type="submit" id="btn-submit-login" class="btn-primary btn-large btn-block">Ingresar</button>
+      </form>
+
+      <div class="auth-footer">
+        <p>¿Aún no tienes cuenta? <a href="#" id="link-ir-registro">Regístrate aquí</a></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- MÓDULOS JAVASCRIPT -->
+  <script defer src="src/api.js"></script>
+  <script defer src="src/auth.js"></script>
+  <script defer src="src/admin.js"></script>
+  <script defer src="src/navegacion.js"></script>
+  <script defer src="src/catalogo.js"></script>
+  <script defer src="src/valoraciones.js"></script>
+  <script defer src="src/mazos.js"></script>
+  <script defer src="src/perfil.js"></script>
+  <script defer src="src/principal.js"></script>
 
 </body>
+
 </html>
